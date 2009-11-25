@@ -17,7 +17,8 @@
 
 extern stats_t teensy_stats;
 
-// /dev/teensy interface (read, write, ioctl, open, release)
+// START /dev/teensy interface
+// 	(read, write, ioctl, open, release)
 teensy_read(struct_file *filp, char __user *buf, size_t count, loff_t *pos)
 {
 	struct command cmd;
@@ -100,7 +101,7 @@ teensy_release(struct inode *inode, struct file *filp)
 	return 0;
 }
 
-// /proc/teesy-stats interface (open, read)
+// START /proc/teensy-stats interface
 int teensy_read_stats(char *buf, char **start, off_t offset, int count,
 		int *eof, void *data)
 {
