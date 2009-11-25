@@ -23,8 +23,37 @@
 		|				|
 
 2.0  Kernel / Userspace interface
-/dev/teensy
-/proc/stat-teensy
+
+2.1 /dev/teensy
+
+As with the sstore driver, /dev/teensy is read and written by calling
+posix read() or write() with a pointer to a structure (struct command).
+
+User space programs should be in the form:
+
+	#include "command.h"
+
+	size_t func(uint16_t data)
+	{
+		int fd;
+		struct command cmd;
+		cmd.cmd_type = CMD_STORE;
+		cmd.index = 1;	// Like a file name
+		cmd.data = data;
+		fd = open("/dev/teensy", O_RDWR);
+		return write(fd, &cmd, sizeof(struct command));
+	}
+	
+
+2.2 /proc/teensy-stats
+
+The proc entry is for read-only use by any (even non-root) user.
+
+	$ cat /proc/teensy-stats
+		# reads: 10
+		# writes: 0
+		# bytes read: 20
+		# bytes written: 0
 
 3.0 STATISTICS
 
