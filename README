@@ -1,4 +1,9 @@
-INTERFACE
+1.0 USB to Host Interface
+2.0 Host (Kernel) to User interface
+3.0 Statistics to collect
+
+
+1.0 USB TO HOST INTERFACE
 
 	GADGET					HOST
 		|				|
@@ -16,3 +21,16 @@ INTERFACE
 		|---------------------------->>	|
 		|				|
 		|				|
+
+2.0  Kernel / Userspace interface
+/dev/teensy
+/proc/stat-teensy
+
+3.0 STATISTICS
+
+	Number of reads
+	Bytes read
+	Number of writes
+	Bytes written
+	Number of stores
+	Number of bytes stored
