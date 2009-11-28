@@ -87,20 +87,6 @@ teensy_ioctl(struct inode *inode, struct file *filp, unsigned int cmd, unsigned 
 	return res;
 }
 
-teensy_open(struct inode *inode, struct file *filp)
-{
-	if (! capable (CAP_SYS_ADMIN))
-		return -EPERM;
-
-	printk(KERN_WARNING "Opened teensy store device.\n");
-	return 0;
-}
-
-teensy_release(struct inode *inode, struct file *filp)
-{
-	return 0;
-}
-
 // START /proc/teensy-stats interface
 int teensy_read_stats(char *buf, char **start, off_t offset, int count,
 		int *eof, void *data)

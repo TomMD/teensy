@@ -7,3 +7,7 @@ typedef struct {
 	int	nr_writes;
 	size_t	bytes_written;
 } stats_t;
+
+struct teensy_dev {
+
+};
