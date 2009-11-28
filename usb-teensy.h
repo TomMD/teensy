@@ -9,5 +9,8 @@ typedef struct {
 } stats_t;
 
 struct teensy_dev {
-
+  struct usb_device    *device;      /* device information storage */
+  struct usb_interface *interface;   /* interface information storage */
+  struct kref          num_open;     /* reference count for device handles */  
+  stats_t              teensy_stats; /* statistics for device */
 };
