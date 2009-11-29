@@ -37,8 +37,8 @@ void on_teensy_close(struct kref *kref);
 /*-------------------------------------------------------------------------*/
 /*-------------------------------------------------------------------------*/
 
-#define VENDOR_ID   0x2f2f   /* unique id from linux-usb.org/usb.ids */
-#define PRODUCT_ID  0x1001   /* random product number */
+#define VENDOR_ID   0x16c0   /* id from PJRC-supplied udev rules file */
+#define PRODUCT_ID  0x0478   /* TODO: get actual product number with udevinfo */
 
 /* structure describing the devices supported by this driver */
 static struct usb_device_id supported_devs[] = {
@@ -91,7 +91,7 @@ MODULE_LICENSE("Dual BSD/GPL");
 static int teensy_init(void) {
   int result;
   
-  printk(KERN_ALERT "Initializing teensy store device.\n");
+  printk(KERN_ALERT "teensy: Initializing teensy store device.\n");
 
   /* register us as a USB driver with USB core */
   result = usb_register(&teensy_driver);
@@ -104,7 +104,7 @@ static int teensy_init(void) {
 module_init(teensy_init);
 
 static void teensy_exit(void) {
-  printk(KERN_ALERT "Exiting teensy store device.\n");
+  printk(KERN_ALERT "teensy: Exiting teensy store device.\n");
 
   /* unregister with USB core */
   usb_deregister(&teensy_driver);
@@ -169,12 +169,63 @@ void on_teensy_close(struct kref *kref) {
 /*-------------------------------------------------------------------------*/
 /*-------------------------------------------------------------------------*/
 int teensy_probe(struct usb_interface *intf, const struct usb_device_id *id) {
+  struct teensy_dev *dev;
+  int result = 0;
+
   printk(KERN_ALERT "Probing for teensy device.\n");
-  return 0;
+
+  /* allocate memory for the device-local storage  */
+  dev = kmalloc(sizeof(struct teensy_dev), GFP_KERNEL);
+  if (!dev) { return -ENOMEM; }
+
+  /* initialize the structure */
+  dev->device = interface_to_usbdev(intf); /* get and save device structure */
+  dev->interface = intf;                   /* save interface structure */
+  kref_init(&dev->num_open);               /* initialize open count */
+  dev->teensy_stats.nr_reads      = 0;     /* initialize statistics info */
+  dev->teensy_stats.bytes_read    = 0;
+  dev->teensy_stats.nr_writes     = 0;
+  dev->teensy_stats.bytes_written = 0;
+
+  /* increment reference count for device */
+  usb_get_dev(dev->device);
+  
+  /* configure endpoints */
+  // TODO
+
+  /* save teensy_dev structure in the interface for later access */
+  usb_set_intfdata(dev->interface, dev);
+
+  /* register the device */
+  result = usb_register_dev(dev->interface, &teensy_class_driver);
+  if (!result) { goto done; /* success */ }
+
+  /* failure branch: free resources */
+  usb_set_intfdata(dev->interface, NULL);
+  kref_put(&dev->num_open, on_teensy_close);
+  usb_put_dev(dev->device);
+  kfree(dev);
+done:
+  return result;
 }
 
 void teensy_disconnect(struct usb_interface *intf) {
+  struct teensy_dev *dev = usb_get_intfdata(intf);
 
+  /* deregister minor number with usb core */
+  usb_deregister_dev(dev->interface, &teensy_class_driver);
+
+  /* clear the pointer in the interface structure */
+  usb_set_intfdata(dev->interface, NULL);
+
+  /* decrement reference count for device */
+  usb_put_dev(dev->device);
+
+  /* decrement reference count for user handles to device */
+  kref_put(&dev->num_open, on_teensy_close);
+
+  /* free the device-local storage data */
+  kfree(dev);
 }
 
 /*-------------------------------------------------------------------------*/
