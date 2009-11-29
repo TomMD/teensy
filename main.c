@@ -14,6 +14,7 @@
 /*-------------------------------------------------------------------------*/
 /*-------------------------------------------------------------------------*/
 
+#include <linux/errno.h>
 #include <linux/usb.h>
 #include "usb-teensy.h"
 
@@ -161,6 +162,7 @@ void on_teensy_close(struct kref *kref) {
   printk("Closed last open handle to teensy store.\n");
 
   /* TODO: could do something more interesting here */
+  /* E.g., follow sstore example and clear store on last close */
 }
 
 /*-------------------------------------------------------------------------*/
@@ -170,7 +172,10 @@ void on_teensy_close(struct kref *kref) {
 /*-------------------------------------------------------------------------*/
 int teensy_probe(struct usb_interface *intf, const struct usb_device_id *id) {
   struct teensy_dev *dev;
+  struct usb_host_interface *host;
+  struct usb_endpoint_descriptor *curr_endpoint;
   int result = 0;
+  int i;
 
   printk(KERN_ALERT "Probing for teensy device.\n");
 
@@ -182,16 +187,60 @@ int teensy_probe(struct usb_interface *intf, const struct usb_device_id *id) {
   dev->device = interface_to_usbdev(intf); /* get and save device structure */
   dev->interface = intf;                   /* save interface structure */
   kref_init(&dev->num_open);               /* initialize open count */
-  dev->teensy_stats.nr_reads      = 0;     /* initialize statistics info */
-  dev->teensy_stats.bytes_read    = 0;
-  dev->teensy_stats.nr_writes     = 0;
-  dev->teensy_stats.bytes_written = 0;
+  memset(dev, 0, sizeof(struct teensy_dev));
 
   /* increment reference count for device */
   usb_get_dev(dev->device);
   
-  /* configure endpoints */
-  // TODO
+  /* get host interface (currently in-use version of altsetting) */
+  host = dev->interface->cur_altsetting;
+
+  /* fail if the host interface doesn't match our configuration */
+  if (host->desc.bNumEndpoints != NUM_ENDPOINTS) { goto fail_after_setup; }
+
+  /* otherwise, we could match, so try to setup endpoints */
+  /* search endpoint descriptors in interface looking for expected endpoints */
+  for(i = 0; i < host->desc.bNumEndpoints; i++) {
+    curr_endpoint = &host->endpoint[i].desc;
+
+    /* setup read_endpoint if this is the bulk in endpoint */
+    if (!dev->read_endpoint &&                       /* we haven't set EP yet */
+        usb_endpoint_is_bulk_in(curr_endpoint)) {    /* type is BULK IN */
+      dev->read_endpoint = curr_endpoint->bEndpointAddress;
+      dev->read_size     = curr_endpoint->wMaxPacketSize;
+      dev->read_buffer   = kmalloc(dev->read_size, GFP_KERNEL);
+      if (!dev->read_buffer) {
+        result = -ENOMEM;
+        goto fail_after_setup;
+      }
+    }
+
+    /* setup write_endpoint if this is the bulk in endpoint */
+    if (!dev->write_endpoint &&                      /* we haven't set EP yet */
+        usb_endpoint_is_bulk_out(curr_endpoint)) {   /* type is BULK OUT */
+      dev->write_endpoint = curr_endpoint->bEndpointAddress;
+    }
+
+    /* setup del_endpoint if this is the control out endpoint */
+    if (!dev->del_endpoint &&                        /* we haven't set EP yet */
+        usb_endpoint_dir_out(curr_endpoint) &&       /* direction is OUT */
+        usb_endpoint_xfer_control(curr_endpoint)) {  /* type is CONTROL */
+      dev->del_endpoint = curr_endpoint->bEndpointAddress;
+    }
+
+    /* setup err_endpoint if this is the control in endpoint */
+    if (!dev->err_endpoint &&                       /* we haven't set EP yet */
+        usb_endpoint_dir_in(curr_endpoint) &&       /* direction is IN */
+        usb_endpoint_xfer_control(curr_endpoint)) { /* type is CONTROL */
+      dev->err_endpoint = curr_endpoint->bEndpointAddress;
+    }
+  }
+
+  if (!dev->read_endpoint || !dev->write_endpoint ||
+      !dev->del_endpoint  || !dev->err_endpoint) {
+    result = -ENOSYS;
+    goto fail_after_endpoints;
+  }
 
   /* save teensy_dev structure in the interface for later access */
   usb_set_intfdata(dev->interface, dev);
@@ -202,7 +251,9 @@ int teensy_probe(struct usb_interface *intf, const struct usb_device_id *id) {
 
   /* failure branch: free resources */
   usb_set_intfdata(dev->interface, NULL);
-  kref_put(&dev->num_open, on_teensy_close);
+fail_after_endpoints:
+  if(dev->read_buffer) { kfree(dev->read_buffer); }
+fail_after_setup:
   usb_put_dev(dev->device);
   kfree(dev);
 done:
@@ -212,17 +263,17 @@ done:
 void teensy_disconnect(struct usb_interface *intf) {
   struct teensy_dev *dev = usb_get_intfdata(intf);
 
-  /* deregister minor number with usb core */
-  usb_deregister_dev(dev->interface, &teensy_class_driver);
-
   /* clear the pointer in the interface structure */
   usb_set_intfdata(dev->interface, NULL);
+  
+  /* deregister minor number with usb core */
+  usb_deregister_dev(dev->interface, &teensy_class_driver);
 
   /* decrement reference count for device */
   usb_put_dev(dev->device);
 
-  /* decrement reference count for user handles to device */
-  kref_put(&dev->num_open, on_teensy_close);
+  /* free the read buffer storge */
+  kfree(dev->read_buffer);
 
   /* free the device-local storage data */
   kfree(dev);

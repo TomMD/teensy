@@ -8,9 +8,18 @@ typedef struct {
 	size_t	bytes_written;
 } stats_t;
 
+#define NUM_ENDPOINTS 4
+
 struct teensy_dev {
-  struct usb_device    *device;      /* device information storage */
-  struct usb_interface *interface;   /* interface information storage */
-  struct kref          num_open;     /* reference count for device handles */  
-  stats_t              teensy_stats; /* statistics for device */
+  struct usb_device    *device;        /* device information storage */
+  struct usb_interface *interface;     /* interface information storage */
+  /* TODO: locking for this structure */
+  __u8                 del_endpoint;   /* CONTROL (OUT) for delete requests */
+  __u8                 err_endpoint;   /* CONTROL (IN) for error info */
+  __u8                 read_endpoint;  /* BULK (IN) for reads */
+  __u8                 write_endpoint; /* BULK (OUT) for writes */
+  unsigned char        *read_buffer;   /* buffer for reads */
+  size_t               read_size;      /* size of the read buffer */
+  struct kref          num_open;       /* reference count for device handles */
+  stats_t              teensy_stats;   /* statistics for device */
 };
