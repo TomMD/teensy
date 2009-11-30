@@ -1,6 +1,14 @@
 // usb-teensy.h  should only be needed by the host
 // (linux kernel) side.
 
+#include <linux/fs.h>
+
+ssize_t teensy_read(struct file *filp, char __user *buf, size_t count,
+                    loff_t *pos);
+ssize_t teensy_write(struct file *filp, const char __user *buf, size_t count,
+                     loff_t *pos);
+int teensy_ioctl(struct inode *inode, struct file *filp, unsigned int cmd, unsigned long idx);
+
 typedef struct {
 	int	nr_reads;
 	size_t	bytes_read;
