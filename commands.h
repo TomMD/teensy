@@ -1,7 +1,7 @@
 // commands.h
 // Author: Thomas M. DuBuisson
 // Defines commands for teensy/PC interaction
-
+// also abused to hold the IOCTL numbers
 
 // Commands that travel over the COMMAND usb channel
 #define CMD_STORE 0x00
@@ -30,3 +30,8 @@ typedef struct command command_t;
 struct response {
 	uint8_t result;
 } __attribute__((__packed__));
+
+#define TEENSY_MAGIC 't'
+#define TEENSY_IOC_MAXNR 2
+#define TEENSY_IOCFLUSH 0
+#define TEENSY_IOCERASE_IDX 1

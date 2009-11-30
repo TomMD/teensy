@@ -1,5 +1,5 @@
 
-usb-teensy-objs	:= main.o
+usb-teensy-objs	:= main.o file_ops.o
 
 obj-m	:= usb-teensy.o
 
