@@ -123,6 +123,7 @@ int teensy_open(struct inode *inode, struct file *filp) {
   struct usb_interface *interface; /* storage for the usb interface */
   struct teensy_dev *dev;          /* storage for our device structure */
   int minornum = iminor(inode);    /* minor number for this dev instance */
+  int result = 0;
 
   printk(KERN_ALERT "Opened teensy store device.\n");
 
@@ -137,13 +138,26 @@ int teensy_open(struct inode *inode, struct file *filp) {
   dev = (struct teensy_dev*) usb_get_intfdata(interface);
   if (!dev) { return -ENODEV; }
 
+  /* take semaphore before reaquiring the dev pointer "for real" */
+  /* we do this to obtain mutual exclusion with the disconnect method */
+  /* because that might free the dev structure after we've obtained our */
+  /* pointer (which we must do to access the semaphore variable. */
+  /* though odd, this strategy avoids taking the BKL */
+  if (down_interruptible(&(dev->sem))) { return -ERESTARTSYS; }
+
+  /* use the pointer we get now, if NULL, disconnect intervened */
+  dev = (struct teensy_dev*) usb_get_intfdata(interface);
+  if (!dev) { result = -ENODEV; goto done; }
+
   /* increment the usage count for the device */
   kref_get(&dev->num_open);
 
   /* save the devive-local structure for other fops functions */
   filp->private_data = dev;
 
-  return 0;
+done:
+  up(&(dev->sem));
+  return result;
 }
 
 int teensy_release(struct inode *inode, struct file *filp) {
@@ -183,11 +197,12 @@ int teensy_probe(struct usb_interface *intf, const struct usb_device_id *id) {
   dev = kmalloc(sizeof(struct teensy_dev), GFP_KERNEL);
   if (!dev) { return -ENOMEM; }
 
-  /* initialize the structure */
-  dev->device = interface_to_usbdev(intf); /* get and save device structure */
-  dev->interface = intf;                   /* save interface structure */
-  kref_init(&dev->num_open);               /* initialize open count */
-  memset(dev, 0, sizeof(struct teensy_dev));
+  /* initialize the device-local information */
+  memset(dev, 0, sizeof(struct teensy_dev)); /* clear fields */
+  dev->device = interface_to_usbdev(intf);   /* save usb device structure */
+  dev->interface = intf;                     /* save usb interface structure */
+  kref_init(&dev->num_open);                 /* initialize open count */
+  sema_init(&dev->sem, 1);                   /* initialize semaphore */
 
   /* increment reference count for device */
   usb_get_dev(dev->device);
@@ -208,11 +223,6 @@ int teensy_probe(struct usb_interface *intf, const struct usb_device_id *id) {
         usb_endpoint_is_bulk_in(curr_endpoint)) {    /* type is BULK IN */
       dev->read_endpoint = curr_endpoint->bEndpointAddress;
       dev->read_size     = curr_endpoint->wMaxPacketSize;
-      dev->read_buffer   = kmalloc(dev->read_size, GFP_KERNEL);
-      if (!dev->read_buffer) {
-        result = -ENOMEM;
-        goto fail_after_setup;
-      }
     }
 
     /* setup write_endpoint if this is the bulk in endpoint */
@@ -239,7 +249,7 @@ int teensy_probe(struct usb_interface *intf, const struct usb_device_id *id) {
   if (!dev->read_endpoint || !dev->write_endpoint ||
       !dev->del_endpoint  || !dev->err_endpoint) {
     result = -ENOSYS;
-    goto fail_after_endpoints;
+    goto fail_after_setup;
   }
 
   /* save teensy_dev structure in the interface for later access */
@@ -251,8 +261,6 @@ int teensy_probe(struct usb_interface *intf, const struct usb_device_id *id) {
 
   /* failure branch: free resources */
   usb_set_intfdata(dev->interface, NULL);
-fail_after_endpoints:
-  if(dev->read_buffer) { kfree(dev->read_buffer); }
 fail_after_setup:
   usb_put_dev(dev->device);
   kfree(dev);
@@ -263,17 +271,20 @@ done:
 void teensy_disconnect(struct usb_interface *intf) {
   struct teensy_dev *dev = usb_get_intfdata(intf);
 
+  /* take the lock for mutual exclusion with open method */
+  if (down_interruptible(&(dev->sem))) { return; }
+
   /* clear the pointer in the interface structure */
   usb_set_intfdata(dev->interface, NULL);
+
+  /* release semaphore */
+  up(&(dev->sem));
   
   /* deregister minor number with usb core */
   usb_deregister_dev(dev->interface, &teensy_class_driver);
 
   /* decrement reference count for device */
   usb_put_dev(dev->device);
-
-  /* free the read buffer storge */
-  kfree(dev->read_buffer);
 
   /* free the device-local storage data */
   kfree(dev);

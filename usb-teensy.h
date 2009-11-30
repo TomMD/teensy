@@ -13,13 +13,13 @@ typedef struct {
 struct teensy_dev {
   struct usb_device    *device;        /* device information storage */
   struct usb_interface *interface;     /* interface information storage */
-  /* TODO: locking for this structure */
+  struct semaphore sem;                /* use device as mutex granularity */
   __u8                 del_endpoint;   /* CONTROL (OUT) for delete requests */
   __u8                 err_endpoint;   /* CONTROL (IN) for error info */
   __u8                 read_endpoint;  /* BULK (IN) for reads */
+  size_t               read_size;      /* size of the read endpoint */
   __u8                 write_endpoint; /* BULK (OUT) for writes */
-  unsigned char        *read_buffer;   /* buffer for reads */
-  size_t               read_size;      /* size of the read buffer */
+  size_t               write_size;     /* size of the write endpoint */
   struct kref          num_open;       /* reference count for device handles */
   stats_t              teensy_stats;   /* statistics for device */
 };
