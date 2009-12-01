@@ -45,7 +45,7 @@ ssize_t teensy_read(struct file *filp, char __user *buf, size_t count,
 
 	// FIXME issue usb_read(cmd)
 	err = usb_control_msg(teensy->device, usb_sndctrlpipe(teensy->device, teensy->del_endpoint),
-				/*req*/ 0, /*reqType*/ 0, /*val*/ 0, /*idx*/ 0,
+				/*req*/ CMD_READ, /*reqType*/ 0, /*val*/ 0, /*idx*/ cmd.index,
 				(void *)&cmd, sizeof(struct command), HZ*10);
 	if (err) {
 		printk(KERN_WARNING "teensy-usb: read:"
@@ -95,7 +95,7 @@ ssize_t teensy_write(struct file *filp, const char __user *buf, size_t count,
 	}
 
 	err = usb_control_msg(teensy->device, usb_sndctrlpipe(teensy->device, teensy->del_endpoint),
-				/*req*/ 0, /*reqType*/ 0, /*val*/ 0, /*idx*/ 0,
+				/*req*/ CMD_STORE, /*reqType*/ 0, /*val*/ 0, /*idx*/ cmd.index,
 				(void *)&cmd, sizeof(struct command), HZ*10);
 	if (err) {
 		printk(KERN_WARNING "teensy-usb: write:"
