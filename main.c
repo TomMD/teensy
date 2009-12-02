@@ -213,7 +213,10 @@ int teensy_probe(struct usb_interface *intf, const struct usb_device_id *id) {
   host = dev->interface->cur_altsetting;
 
   /* fail if the host interface doesn't match our configuration */
-  if (host->desc.bNumEndpoints != NUM_ENDPOINTS) { goto fail_after_setup; }
+  if (host->desc.bNumEndpoints != NUM_ENDPOINTS) { 
+    result = -ENOSYS;
+    goto fail_after_setup; 
+  }
 
   /* otherwise, we could match, so try to setup endpoints */
   /* search endpoint descriptors in interface looking for expected endpoints */
@@ -264,7 +267,6 @@ int teensy_probe(struct usb_interface *intf, const struct usb_device_id *id) {
   /* failure branch: free resources */
   usb_set_intfdata(dev->interface, NULL);
 fail_after_setup:
-  /* TODO: deregister device (fails on numEndpoints and doesn't exit) */
   usb_put_dev(dev->device);
   kfree(dev);
 done:
