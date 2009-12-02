@@ -10,7 +10,7 @@ all:
 	$(MAKE) -C $(KERNELDIR) M=$(PWD) 
 
 install: all
-	mkdir /lib/modules/`(uname -r)`/teensy
+	mkdir -p /lib/modules/`(uname -r)`/teensy
 	cp usb-teensy.ko /lib/modules/`(uname -r)`/teensy
 	/sbin/depmod
 
