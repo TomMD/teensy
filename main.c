@@ -38,12 +38,16 @@ void on_teensy_close(struct kref *kref);
 /*-------------------------------------------------------------------------*/
 /*-------------------------------------------------------------------------*/
 
-#define VENDOR_ID   0x16c0   /* id from PJRC-supplied udev rules file */
-#define PRODUCT_ID  0x0478   /* TODO: get actual product number with udevinfo */
+#define VENDOR_ID      0x16c0   /* id from PJRC-supplied udev rules file */
+#define PRODUCT_ID     0x0478   /* chosen product id (matches udev rule) */
+#define IFACE_CLASS    0xff     /* "vendor specific" class code */
+#define IFACE_SUBCLASS 0xaa     /* chosen subclass */
+#define PROTOCOL       0        /* ignore protocol */
 
 /* structure describing the devices supported by this driver */
 static struct usb_device_id supported_devs[] = {
-  { USB_DEVICE(VENDOR_ID, PRODUCT_ID) }, { }
+  { USB_DEVICE_AND_INTERFACE_INFO(VENDOR_ID, PRODUCT_ID,
+                                  IFACE_CLASS, IFACE_SUBCLASS, PROTOCOL) }, { }
 };
 
 /* turn device-id structure into appropriate format for kernel */
@@ -260,6 +264,7 @@ int teensy_probe(struct usb_interface *intf, const struct usb_device_id *id) {
   /* failure branch: free resources */
   usb_set_intfdata(dev->interface, NULL);
 fail_after_setup:
+  /* TODO: deregister device (fails on numEndpoints and doesn't exit) */
   usb_put_dev(dev->device);
   kfree(dev);
 done:
@@ -271,7 +276,7 @@ void teensy_disconnect(struct usb_interface *intf) {
 
   /* take the lock for mutual exclusion with open method */
   if (down_interruptible(&(dev->sem))) { return; }
-  
+
   /* deregister minor number with usb core */
   usb_deregister_dev(dev->interface, &teensy_class_driver);
 
