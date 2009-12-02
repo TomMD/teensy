@@ -271,15 +271,15 @@ void teensy_disconnect(struct usb_interface *intf) {
 
   /* take the lock for mutual exclusion with open method */
   if (down_interruptible(&(dev->sem))) { return; }
+  
+  /* deregister minor number with usb core */
+  usb_deregister_dev(dev->interface, &teensy_class_driver);
 
   /* clear the pointer in the interface structure */
   usb_set_intfdata(dev->interface, NULL);
 
   /* release semaphore */
   up(&(dev->sem));
-  
-  /* deregister minor number with usb core */
-  usb_deregister_dev(dev->interface, &teensy_class_driver);
 
   /* decrement reference count for device */
   usb_put_dev(dev->device);
