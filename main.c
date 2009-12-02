@@ -54,11 +54,9 @@ static struct file_operations teensy_fops = {
   .owner      = THIS_MODULE,
   .open       = teensy_open,
   .release    = teensy_release,
-#if 0 // wait until Thomas implements
   .read       = teensy_read,
   .write      = teensy_write,
   .ioctl      = teensy_ioctl
-#endif
 };
 
 /* structure describing USB-specific driver information */
