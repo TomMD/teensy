@@ -12,7 +12,7 @@ all:
 install: all
 	mkdir /lib/modules/`(uname -r)`/teensy
 	cp usb-teensy.ko /lib/modules/`(uname -r)`/teensy
-	depmod
+	/sbin/depmod
 
 clean:
 	rm -rf *.o *~ core .depend .*.cmd *.ko *.mod.c .tmp_versions
