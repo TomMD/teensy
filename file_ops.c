@@ -30,6 +30,11 @@ ssize_t teensy_read(struct file *filp, char __user *buf, size_t count,
 
 	teensy = filp->private_data;
 
+	if(down_interruptible(&teensy->sem)) {
+		printk(KERN_WARNING "teensy-usb: read: down interrupted\n");
+		goto teensy_read_out_no_sem;
+	}
+
 	err = copy_from_user(&cmd, buf, sizeof(struct command));
 	if (err) {
 		printk(KERN_WARNING "teensy-usb: read:"
@@ -69,6 +74,8 @@ ssize_t teensy_read(struct file *filp, char __user *buf, size_t count,
 	}
 	
 teensy_read_out:
+	up(&teensy->sem);
+teensy_read_out_no_sem:
 	return (ssize_t)actualLen;
 }
 
@@ -80,6 +87,11 @@ ssize_t teensy_write(struct file *filp, const char __user *buf, size_t count,
 	int err=0, actualLen=0;
 
 	teensy = filp->private_data;
+
+	if (down_interruptible(&teensy->sem)) {
+		printk(KERN_WARNING "teensy-usb: write: down interrupted\n");
+		goto teensy_write_out_no_sem;
+	}
 
 	err = copy_from_user(&cmd, buf, sizeof(struct command));
 	if (err) {
@@ -112,6 +124,8 @@ ssize_t teensy_write(struct file *filp, const char __user *buf, size_t count,
 	}
 
 teensy_write_out:
+	up(&teensy->sem);
+teensy_write_out_no_sem:
 	return (ssize_t)actualLen;
 }
 
