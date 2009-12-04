@@ -20,14 +20,14 @@ USB_Descriptor_Device_t PROGMEM DeviceDescriptor =
         .Header                 = {.Size = sizeof(USB_Descriptor_Device_t), .Type = DTYPE_Device},
 
         .USBSpecification       = VERSION_BCD(01.10),
-        .Class                  = 0x00,
-        .SubClass               = 0x00,
+        .Class                  = 0xff,
+        .SubClass               = 0xaa,
         .Protocol               = 0x00,
 
         .Endpoint0Size          = FIXED_CONTROL_ENDPOINT_SIZE,
 
-        .VendorID               = 0x03EB,
-        .ProductID              = 0x2045,
+        .VendorID               = 0x16c0,
+        .ProductID              = 0x0478,
         .ReleaseNumber          = 0x0000,
 
         .ManufacturerStrIndex   = 0x01,
