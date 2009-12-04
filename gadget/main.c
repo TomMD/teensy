@@ -17,6 +17,10 @@ int main(void)
 	return 0;
 }
 
+
+
+/* START Descriptors -- ENTIRELY RIPPED OFF FROM LUFA LIBRARY EXAMPLES!!! */
+
 USB_Descriptor_Device_t PROGMEM DeviceDescriptor =
 {
         .Header                 = {.Size = sizeof(USB_Descriptor_Device_t), .Type = DTYPE_Device},
@@ -55,7 +59,6 @@ typedef struct {
 
 #define BULK_EPSIZE 64
 #define CTRL_EPSIZE 16
-
 
 USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 {
