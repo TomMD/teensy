@@ -1,0 +1,1044 @@
+Archive member included because of file (symbol)
+
+/usr/lib/gcc/avr/4.4.2/avr51/libgcc.a(_exit.o)
+                              /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/crtusb1287.o (exit)
+/usr/lib/gcc/avr/4.4.2/avr51/libgcc.a(_clear_bss.o)
+                              MIDIHost.o (__do_clear_bss)
+/usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(iob.o)
+                              MIDIHost.o (__iob)
+/usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(printf_p.o)
+                              MIDIHost.o (printf_P)
+/usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(puts.o)
+                              MIDIHost.o (puts)
+/usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(puts_p.o)
+                              MIDIHost.o (puts_P)
+/usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(vfprintf_std.o)
+                              /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(printf_p.o) (vfprintf)
+/usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(eerd_byte_at90usb1287.o)
+                              ../../../../LUFA/Drivers/USB/LowLevel/Pipe.o (__eerd_byte_usb1287)
+/usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(eewr_byte_at90usb1287.o)
+                              ../../../../LUFA/Drivers/USB/LowLevel/Pipe.o (__eewr_byte_usb1287)
+/usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(strnlen_P.o)
+                              /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(vfprintf_std.o) (strnlen_P)
+/usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(strnlen.o)
+                              /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(vfprintf_std.o) (strnlen)
+/usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(fputc.o)
+                              /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(vfprintf_std.o) (fputc)
+/usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(ultoa_invert.o)
+                              /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(vfprintf_std.o) (__ultoa_invert)
+
+Allocating common symbols
+Common symbol       size              file
+
+USB_IsInitialized   0x1               ../../../../LUFA/Drivers/USB/HighLevel/USBTask.o
+USB_ControlRequest  0x8               ../../../../LUFA/Drivers/USB/HighLevel/USBTask.o
+USB_HostState       0x1               ../../../../LUFA/Drivers/USB/HighLevel/USBTask.o
+__iob               0x6               /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(iob.o)
+
+Discarded input sections
+
+ .data          0x00000000        0x0 /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/crtusb1287.o
+ .bss           0x00000000        0x0 /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/crtusb1287.o
+ .text          0x00000000        0x0 MIDIHost.o
+ .text          0x00000000        0x0 ../../../../LUFA/Drivers/Peripheral/SerialStream.o
+ .bss           0x00000000        0x0 ../../../../LUFA/Drivers/Peripheral/SerialStream.o
+ .text          0x00000000        0x0 ../../../../LUFA/Drivers/Peripheral/Serial.o
+ .data          0x00000000        0x0 ../../../../LUFA/Drivers/Peripheral/Serial.o
+ .bss           0x00000000        0x0 ../../../../LUFA/Drivers/Peripheral/Serial.o
+ .text.Serial_TxString_P
+                0x00000000       0x1a ../../../../LUFA/Drivers/Peripheral/Serial.o
+ .text.Serial_TxString
+                0x00000000       0x1a ../../../../LUFA/Drivers/Peripheral/Serial.o
+ .text          0x00000000        0x0 ../../../../LUFA/Drivers/USB/LowLevel/DevChapter9.o
+ .data          0x00000000        0x0 ../../../../LUFA/Drivers/USB/LowLevel/DevChapter9.o
+ .bss           0x00000000        0x0 ../../../../LUFA/Drivers/USB/LowLevel/DevChapter9.o
+ .text          0x00000000        0x0 ../../../../LUFA/Drivers/USB/LowLevel/Endpoint.o
+ .data          0x00000000        0x0 ../../../../LUFA/Drivers/USB/LowLevel/Endpoint.o
+ .bss           0x00000000        0x0 ../../../../LUFA/Drivers/USB/LowLevel/Endpoint.o
+ .text          0x00000000        0x0 ../../../../LUFA/Drivers/USB/LowLevel/Host.o
+ .text.USB_Host_ClearPipeStall
+                0x00000000       0x3e ../../../../LUFA/Drivers/USB/LowLevel/Host.o
+ .text.USB_Host_GetDeviceDescriptor
+                0x00000000       0x20 ../../../../LUFA/Drivers/USB/LowLevel/Host.o
+ .text          0x00000000        0x0 ../../../../LUFA/Drivers/USB/LowLevel/HostChapter9.o
+ .data          0x00000000        0x0 ../../../../LUFA/Drivers/USB/LowLevel/HostChapter9.o
+ .bss           0x00000000        0x0 ../../../../LUFA/Drivers/USB/LowLevel/HostChapter9.o
+ .text          0x00000000        0x0 ../../../../LUFA/Drivers/USB/LowLevel/LowLevel.o
+ .data          0x00000000        0x0 ../../../../LUFA/Drivers/USB/LowLevel/LowLevel.o
+ .bss           0x00000000        0x0 ../../../../LUFA/Drivers/USB/LowLevel/LowLevel.o
+ .text          0x00000000        0x0 ../../../../LUFA/Drivers/USB/LowLevel/Pipe.o
+ .bss           0x00000000        0x0 ../../../../LUFA/Drivers/USB/LowLevel/Pipe.o
+ .text.Pipe_Discard_Stream
+                0x00000000       0x74 ../../../../LUFA/Drivers/USB/LowLevel/Pipe.o
+ .text.Pipe_Write_PStream_LE
+                0x00000000       0xa4 ../../../../LUFA/Drivers/USB/LowLevel/Pipe.o
+ .text.Pipe_Write_Stream_BE
+                0x00000000       0xa0 ../../../../LUFA/Drivers/USB/LowLevel/Pipe.o
+ .text.Pipe_Write_PStream_BE
+                0x00000000       0xa0 ../../../../LUFA/Drivers/USB/LowLevel/Pipe.o
+ .text.Pipe_Read_Stream_BE
+                0x00000000       0xa0 ../../../../LUFA/Drivers/USB/LowLevel/Pipe.o
+ .text.Pipe_Read_EStream_BE
+                0x00000000       0xa0 ../../../../LUFA/Drivers/USB/LowLevel/Pipe.o
+ .text.Pipe_Read_EStream_LE
+                0x00000000       0xb8 ../../../../LUFA/Drivers/USB/LowLevel/Pipe.o
+ .text.Pipe_Write_EStream_BE
+                0x00000000       0xa2 ../../../../LUFA/Drivers/USB/LowLevel/Pipe.o
+ .text.Pipe_Write_EStream_LE
+                0x00000000       0xb8 ../../../../LUFA/Drivers/USB/LowLevel/Pipe.o
+ .text          0x00000000        0x0 ../../../../LUFA/Drivers/USB/HighLevel/Events.o
+ .data          0x00000000        0x0 ../../../../LUFA/Drivers/USB/HighLevel/Events.o
+ .bss           0x00000000        0x0 ../../../../LUFA/Drivers/USB/HighLevel/Events.o
+ .text.USB_Event_Stub
+                0x00000000        0x2 ../../../../LUFA/Drivers/USB/HighLevel/Events.o
+ .text          0x00000000        0x0 ../../../../LUFA/Drivers/USB/HighLevel/USBInterrupt.o
+ .data          0x00000000        0x0 ../../../../LUFA/Drivers/USB/HighLevel/USBInterrupt.o
+ .bss           0x00000000        0x0 ../../../../LUFA/Drivers/USB/HighLevel/USBInterrupt.o
+ .text          0x00000000        0x0 ../../../../LUFA/Drivers/USB/HighLevel/USBTask.o
+ .data          0x00000000        0x0 ../../../../LUFA/Drivers/USB/HighLevel/USBTask.o
+ .bss           0x00000000        0x0 ../../../../LUFA/Drivers/USB/HighLevel/USBTask.o
+ .text          0x00000000        0x0 ../../../../LUFA/Drivers/USB/HighLevel/ConfigDescriptor.o
+ .data          0x00000000        0x0 ../../../../LUFA/Drivers/USB/HighLevel/ConfigDescriptor.o
+ .bss           0x00000000        0x0 ../../../../LUFA/Drivers/USB/HighLevel/ConfigDescriptor.o
+ .text.USB_GetNextDescriptorOfType
+                0x00000000       0x3a ../../../../LUFA/Drivers/USB/HighLevel/ConfigDescriptor.o
+ .text.USB_GetNextDescriptorOfTypeBefore
+                0x00000000       0x44 ../../../../LUFA/Drivers/USB/HighLevel/ConfigDescriptor.o
+ .text.USB_GetNextDescriptorOfTypeAfter
+                0x00000000       0x34 ../../../../LUFA/Drivers/USB/HighLevel/ConfigDescriptor.o
+ .text          0x00000000        0x0 ../../../../LUFA/Drivers/USB/Class/Device/MIDI.o
+ .data          0x00000000        0x0 ../../../../LUFA/Drivers/USB/Class/Device/MIDI.o
+ .bss           0x00000000        0x0 ../../../../LUFA/Drivers/USB/Class/Device/MIDI.o
+ .text          0x00000000        0x0 ../../../../LUFA/Drivers/USB/Class/Host/MIDI.o
+ .data          0x00000000        0x0 ../../../../LUFA/Drivers/USB/Class/Host/MIDI.o
+ .bss           0x00000000        0x0 ../../../../LUFA/Drivers/USB/Class/Host/MIDI.o
+ .text          0x00000000        0x0 /usr/lib/gcc/avr/4.4.2/avr51/libgcc.a(_exit.o)
+ .data          0x00000000        0x0 /usr/lib/gcc/avr/4.4.2/avr51/libgcc.a(_exit.o)
+ .bss           0x00000000        0x0 /usr/lib/gcc/avr/4.4.2/avr51/libgcc.a(_exit.o)
+ .text.libgcc   0x00000000        0x0 /usr/lib/gcc/avr/4.4.2/avr51/libgcc.a(_exit.o)
+ .text          0x00000000        0x0 /usr/lib/gcc/avr/4.4.2/avr51/libgcc.a(_clear_bss.o)
+ .data          0x00000000        0x0 /usr/lib/gcc/avr/4.4.2/avr51/libgcc.a(_clear_bss.o)
+ .bss           0x00000000        0x0 /usr/lib/gcc/avr/4.4.2/avr51/libgcc.a(_clear_bss.o)
+ .text.libgcc   0x00000000        0x0 /usr/lib/gcc/avr/4.4.2/avr51/libgcc.a(_clear_bss.o)
+ .text          0x00000000        0x0 /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(iob.o)
+ .data          0x00000000        0x0 /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(iob.o)
+ .bss           0x00000000        0x0 /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(iob.o)
+ .text          0x00000000        0x0 /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(printf_p.o)
+ .data          0x00000000        0x0 /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(printf_p.o)
+ .bss           0x00000000        0x0 /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(printf_p.o)
+ .text          0x00000000        0x0 /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(puts.o)
+ .data          0x00000000        0x0 /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(puts.o)
+ .bss           0x00000000        0x0 /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(puts.o)
+ .text          0x00000000        0x0 /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(puts_p.o)
+ .data          0x00000000        0x0 /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(puts_p.o)
+ .bss           0x00000000        0x0 /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(puts_p.o)
+ .text          0x00000000        0x0 /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(vfprintf_std.o)
+ .data          0x00000000        0x0 /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(vfprintf_std.o)
+ .bss           0x00000000        0x0 /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(vfprintf_std.o)
+ .text          0x00000000        0x0 /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(eerd_byte_at90usb1287.o)
+ .data          0x00000000        0x0 /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(eerd_byte_at90usb1287.o)
+ .bss           0x00000000        0x0 /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(eerd_byte_at90usb1287.o)
+ .text.avr-libc
+                0x00000000       0x10 /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(eerd_byte_at90usb1287.o)
+ .text          0x00000000        0x0 /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(eewr_byte_at90usb1287.o)
+ .data          0x00000000        0x0 /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(eewr_byte_at90usb1287.o)
+ .bss           0x00000000        0x0 /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(eewr_byte_at90usb1287.o)
+ .text.avr-libc
+                0x00000000       0x1c /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(eewr_byte_at90usb1287.o)
+ .text          0x00000000        0x0 /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(strnlen_P.o)
+ .data          0x00000000        0x0 /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(strnlen_P.o)
+ .bss           0x00000000        0x0 /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(strnlen_P.o)
+ .text          0x00000000        0x0 /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(strnlen.o)
+ .data          0x00000000        0x0 /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(strnlen.o)
+ .bss           0x00000000        0x0 /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(strnlen.o)
+ .text          0x00000000        0x0 /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(fputc.o)
+ .data          0x00000000        0x0 /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(fputc.o)
+ .bss           0x00000000        0x0 /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(fputc.o)
+ .text          0x00000000        0x0 /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(ultoa_invert.o)
+ .data          0x00000000        0x0 /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(ultoa_invert.o)
+ .bss           0x00000000        0x0 /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(ultoa_invert.o)
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+text             0x00000000         0x00020000         xr
+data             0x00800060         0x0000ffa0         rw !x
+eeprom           0x00810000         0x00010000         rw !x
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+Address of section .data set to 0x800100
+LOAD /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/crtusb1287.o
+LOAD MIDIHost.o
+LOAD ../../../../LUFA/Drivers/Peripheral/SerialStream.o
+LOAD ../../../../LUFA/Drivers/Peripheral/Serial.o
+LOAD ../../../../LUFA/Drivers/USB/LowLevel/DevChapter9.o
+LOAD ../../../../LUFA/Drivers/USB/LowLevel/Endpoint.o
+LOAD ../../../../LUFA/Drivers/USB/LowLevel/Host.o
+LOAD ../../../../LUFA/Drivers/USB/LowLevel/HostChapter9.o
+LOAD ../../../../LUFA/Drivers/USB/LowLevel/LowLevel.o
+LOAD ../../../../LUFA/Drivers/USB/LowLevel/Pipe.o
+LOAD ../../../../LUFA/Drivers/USB/HighLevel/Events.o
+LOAD ../../../../LUFA/Drivers/USB/HighLevel/USBInterrupt.o
+LOAD ../../../../LUFA/Drivers/USB/HighLevel/USBTask.o
+LOAD ../../../../LUFA/Drivers/USB/HighLevel/ConfigDescriptor.o
+LOAD ../../../../LUFA/Drivers/USB/Class/Device/MIDI.o
+LOAD ../../../../LUFA/Drivers/USB/Class/Host/MIDI.o
+LOAD /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libm.a
+LOAD /usr/lib/gcc/avr/4.4.2/avr51/libgcc.a
+LOAD /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a
+LOAD /usr/lib/gcc/avr/4.4.2/avr51/libgcc.a
+
+.hash
+ *(.hash)
+
+.dynsym
+ *(.dynsym)
+
+.dynstr
+ *(.dynstr)
+
+.gnu.version
+ *(.gnu.version)
+
+.gnu.version_d
+ *(.gnu.version_d)
+
+.gnu.version_r
+ *(.gnu.version_r)
+
+.rel.init
+ *(.rel.init)
+
+.rela.init
+ *(.rela.init)
+
+.rel.text
+ *(.rel.text)
+ *(.rel.text.*)
+ *(.rel.gnu.linkonce.t*)
+
+.rela.text
+ *(.rela.text)
+ *(.rela.text.*)
+ *(.rela.gnu.linkonce.t*)
+
+.rel.fini
+ *(.rel.fini)
+
+.rela.fini
+ *(.rela.fini)
+
+.rel.rodata
+ *(.rel.rodata)
+ *(.rel.rodata.*)
+ *(.rel.gnu.linkonce.r*)
+
+.rela.rodata
+ *(.rela.rodata)
+ *(.rela.rodata.*)
+ *(.rela.gnu.linkonce.r*)
+
+.rel.data
+ *(.rel.data)
+ *(.rel.data.*)
+ *(.rel.gnu.linkonce.d*)
+
+.rela.data
+ *(.rela.data)
+ *(.rela.data.*)
+ *(.rela.gnu.linkonce.d*)
+
+.rel.ctors
+ *(.rel.ctors)
+
+.rela.ctors
+ *(.rela.ctors)
+
+.rel.dtors
+ *(.rel.dtors)
+
+.rela.dtors
+ *(.rela.dtors)
+
+.rel.got
+ *(.rel.got)
+
+.rela.got
+ *(.rela.got)
+
+.rel.bss
+ *(.rel.bss)
+
+.rela.bss
+ *(.rela.bss)
+
+.rel.plt
+ *(.rel.plt)
+
+.rela.plt
+ *(.rela.plt)
+
+.text           0x00000000     0x19b2
+ *(.vectors)
+ .vectors       0x00000000       0x98 /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/crtusb1287.o
+                0x00000000                __vectors
+                0x00000000                __vector_default
+ *(.vectors)
+ *(.progmem.gcc*)
+ *(.progmem*)
+ .progmem.data  0x00000098      0x104 MIDIHost.o
+                0x0000019c                . = ALIGN (0x2)
+                0x0000019c                __trampolines_start = .
+ *(.trampolines)
+ .trampolines   0x0000019c        0x0 linker stubs
+ *(.trampolines*)
+                0x0000019c                __trampolines_end = .
+ *(.jumptables)
+ *(.jumptables*)
+ *(.lowtext)
+ *(.lowtext*)
+                0x0000019c                __ctors_start = .
+ *(.ctors)
+                0x0000019c                __ctors_end = .
+                0x0000019c                __dtors_start = .
+ *(.dtors)
+                0x0000019c                __dtors_end = .
+ SORT(*)(.ctors)
+ SORT(*)(.dtors)
+ *(.init0)
+ .init0         0x0000019c        0x0 /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/crtusb1287.o
+                0x0000019c                __init
+ *(.init0)
+ *(.init1)
+ *(.init1)
+ *(.init2)
+ .init2         0x0000019c        0xc /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/crtusb1287.o
+ *(.init2)
+ *(.init3)
+ *(.init3)
+ *(.init4)
+ .init4         0x000001a8       0x1a /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/crtusb1287.o
+                0x000001a8                __do_copy_data
+ .init4         0x000001c2       0x10 /usr/lib/gcc/avr/4.4.2/avr51/libgcc.a(_clear_bss.o)
+                0x000001c2                __do_clear_bss
+ *(.init4)
+ *(.init5)
+ *(.init5)
+ *(.init6)
+ *(.init6)
+ *(.init7)
+ *(.init7)
+ *(.init8)
+ *(.init8)
+ *(.init9)
+ .init9         0x000001d2        0x6 /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/crtusb1287.o
+ *(.init9)
+ *(.text)
+ .text          0x000001d8        0x2 /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/crtusb1287.o
+                0x000001d8                __vector_22
+                0x000001d8                __vector_28
+                0x000001d8                __vector_1
+                0x000001d8                __vector_32
+                0x000001d8                __vector_34
+                0x000001d8                __vector_24
+                0x000001d8                __vector_12
+                0x000001d8                __bad_interrupt
+                0x000001d8                __vector_6
+                0x000001d8                __vector_31
+                0x000001d8                __vector_35
+                0x000001d8                __vector_3
+                0x000001d8                __vector_23
+                0x000001d8                __vector_30
+                0x000001d8                __vector_25
+                0x000001d8                __vector_11
+                0x000001d8                __vector_13
+                0x000001d8                __vector_17
+                0x000001d8                __vector_19
+                0x000001d8                __vector_7
+                0x000001d8                __vector_27
+                0x000001d8                __vector_5
+                0x000001d8                __vector_33
+                0x000001d8                __vector_37
+                0x000001d8                __vector_4
+                0x000001d8                __vector_9
+                0x000001d8                __vector_2
+                0x000001d8                __vector_21
+                0x000001d8                __vector_15
+                0x000001d8                __vector_36
+                0x000001d8                __vector_29
+                0x000001d8                __vector_8
+                0x000001d8                __vector_26
+                0x000001d8                __vector_14
+                0x000001d8                __vector_16
+                0x000001d8                __vector_18
+                0x000001d8                __vector_20
+                0x000001da                . = ALIGN (0x2)
+ *(.text.*)
+ .text.EVENT_USB_Host_DeviceEnumerationComplete
+                0x000001da        0xa MIDIHost.o
+                0x000001da                EVENT_USB_Host_DeviceEnumerationComplete
+ .text.EVENT_USB_Host_DeviceEnumerationFailed
+                0x000001e4       0x58 MIDIHost.o
+                0x000001e4                EVENT_USB_Host_DeviceEnumerationFailed
+ .text.EVENT_USB_Host_HostError
+                0x0000023c       0x44 MIDIHost.o
+                0x0000023c                EVENT_USB_Host_HostError
+ .text.EVENT_USB_Host_DeviceUnattached
+                0x00000280       0x12 MIDIHost.o
+                0x00000280                EVENT_USB_Host_DeviceUnattached
+ .text.EVENT_USB_Host_DeviceAttached
+                0x00000292       0x12 MIDIHost.o
+                0x00000292                EVENT_USB_Host_DeviceAttached
+ .text.CheckJoystickMovement
+                0x000002a4       0xce MIDIHost.o
+                0x000002a4                CheckJoystickMovement
+ .text.SetupHardware
+                0x00000372       0x7e MIDIHost.o
+                0x00000372                SetupHardware
+ .text.main     0x000003f0      0x152 MIDIHost.o
+                0x000003f0                main
+ .text.SerialStream_TxByte
+                0x00000542       0x12 ../../../../LUFA/Drivers/Peripheral/SerialStream.o
+ .text.SerialStream_RxByte
+                0x00000554       0x10 ../../../../LUFA/Drivers/Peripheral/SerialStream.o
+ .text.USB_Host_WaitMS
+                0x00000564       0x70 ../../../../LUFA/Drivers/USB/LowLevel/Host.o
+                0x00000564                USB_Host_WaitMS
+ .text.USB_Host_ResetDevice
+                0x000005d4       0x7c ../../../../LUFA/Drivers/USB/LowLevel/Host.o
+ .text.USB_Host_SetDeviceConfiguration
+                0x00000650       0x2c ../../../../LUFA/Drivers/USB/LowLevel/Host.o
+                0x00000650                USB_Host_SetDeviceConfiguration
+ .text.USB_Host_ProcessNextHostState
+                0x0000067c      0x27e ../../../../LUFA/Drivers/USB/LowLevel/Host.o
+                0x0000067c                USB_Host_ProcessNextHostState
+ .text.USB_Host_WaitForIOS
+                0x000008fa       0x52 ../../../../LUFA/Drivers/USB/LowLevel/HostChapter9.o
+ .text.USB_Host_SendControlRequest
+                0x0000094c      0x216 ../../../../LUFA/Drivers/USB/LowLevel/HostChapter9.o
+                0x0000094c                USB_Host_SendControlRequest
+ .text.USB_ResetInterface
+                0x00000b62       0x96 ../../../../LUFA/Drivers/USB/LowLevel/LowLevel.o
+                0x00000b62                USB_ResetInterface
+ .text.USB_ShutDown
+                0x00000bf8       0x24 ../../../../LUFA/Drivers/USB/LowLevel/LowLevel.o
+                0x00000bf8                USB_ShutDown
+ .text.USB_Init
+                0x00000c1c       0x26 ../../../../LUFA/Drivers/USB/LowLevel/LowLevel.o
+                0x00000c1c                USB_Init
+ .text.Pipe_ConfigurePipe
+                0x00000c42       0x84 ../../../../LUFA/Drivers/USB/LowLevel/Pipe.o
+                0x00000c42                Pipe_ConfigurePipe
+ .text.Pipe_ClearPipes
+                0x00000cc6       0x5a ../../../../LUFA/Drivers/USB/LowLevel/Pipe.o
+                0x00000cc6                Pipe_ClearPipes
+ .text.Pipe_IsEndpointBound
+                0x00000d20       0x3a ../../../../LUFA/Drivers/USB/LowLevel/Pipe.o
+                0x00000d20                Pipe_IsEndpointBound
+ .text.Pipe_WaitUntilReady
+                0x00000d5a       0x58 ../../../../LUFA/Drivers/USB/LowLevel/Pipe.o
+                0x00000d5a                Pipe_WaitUntilReady
+ .text.Pipe_Write_Stream_LE
+                0x00000db2       0xa2 ../../../../LUFA/Drivers/USB/LowLevel/Pipe.o
+                0x00000db2                Pipe_Write_Stream_LE
+ .text.Pipe_Read_Stream_LE
+                0x00000e54       0xa2 ../../../../LUFA/Drivers/USB/LowLevel/Pipe.o
+                0x00000e54                Pipe_Read_Stream_LE
+ .text.USB_INT_DisableAllInterrupts
+                0x00000ef6       0x14 ../../../../LUFA/Drivers/USB/HighLevel/USBInterrupt.o
+                0x00000ef6                USB_INT_DisableAllInterrupts
+ .text.USB_INT_ClearAllInterrupts
+                0x00000f0a        0xe ../../../../LUFA/Drivers/USB/HighLevel/USBInterrupt.o
+                0x00000f0a                USB_INT_ClearAllInterrupts
+ .text.__vector_10
+                0x00000f18      0x10a ../../../../LUFA/Drivers/USB/HighLevel/USBInterrupt.o
+                0x00000f18                __vector_10
+ .text.USB_USBTask
+                0x00001022       0x1c ../../../../LUFA/Drivers/USB/HighLevel/USBTask.o
+                0x00001022                USB_USBTask
+ .text.USB_GetNextDescriptorComp
+                0x0000103e       0x78 ../../../../LUFA/Drivers/USB/HighLevel/ConfigDescriptor.o
+                0x0000103e                USB_GetNextDescriptorComp
+ .text.USB_Host_GetDeviceConfigDescriptor
+                0x000010b6       0xae ../../../../LUFA/Drivers/USB/HighLevel/ConfigDescriptor.o
+                0x000010b6                USB_Host_GetDeviceConfigDescriptor
+ .text.DComp_MIDI_Host_NextMIDIStreamingInterface
+                0x00001164       0x1c ../../../../LUFA/Drivers/USB/Class/Host/MIDI.o
+ .text.MIDI_Host_USBTask
+                0x00001180        0x2 ../../../../LUFA/Drivers/USB/Class/Host/MIDI.o
+                0x00001180                MIDI_Host_USBTask
+ .text.MIDI_Host_ReceiveEventPacket
+                0x00001182       0x48 ../../../../LUFA/Drivers/USB/Class/Host/MIDI.o
+                0x00001182                MIDI_Host_ReceiveEventPacket
+ .text.MIDI_Host_SendEventPacket
+                0x000011ca       0x42 ../../../../LUFA/Drivers/USB/Class/Host/MIDI.o
+                0x000011ca                MIDI_Host_SendEventPacket
+ .text.MIDI_Host_ConfigurePipes
+                0x0000120c      0x12c ../../../../LUFA/Drivers/USB/Class/Host/MIDI.o
+                0x0000120c                MIDI_Host_ConfigurePipes
+ .text.DComp_MIDI_Host_NextMIDIStreamingDataEndpoint
+                0x00001338       0x26 ../../../../LUFA/Drivers/USB/Class/Host/MIDI.o
+ .text.avr-libc
+                0x0000135e       0x3e /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(printf_p.o)
+                0x0000135e                printf_P
+ .text.avr-libc
+                0x0000139c       0x76 /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(puts.o)
+                0x0000139c                puts
+ .text.avr-libc
+                0x00001412       0x78 /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(puts_p.o)
+                0x00001412                puts_P
+ .text.avr-libc
+                0x0000148a      0x3e4 /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(vfprintf_std.o)
+                0x0000148a                vfprintf
+ .text.avr-libc
+                0x0000186e       0x16 /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(strnlen_P.o)
+                0x0000186e                strnlen_P
+ .text.avr-libc
+                0x00001884       0x16 /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(strnlen.o)
+                0x00001884                strnlen
+ .text.avr-libc
+                0x0000189a       0x58 /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(fputc.o)
+                0x0000189a                fputc
+ .text.avr-libc
+                0x000018f2       0xbc /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(ultoa_invert.o)
+                0x000018f2                __ultoa_invert
+                0x000019ae                . = ALIGN (0x2)
+ *(.fini9)
+ .fini9         0x000019ae        0x0 /usr/lib/gcc/avr/4.4.2/avr51/libgcc.a(_exit.o)
+                0x000019ae                exit
+                0x000019ae                _exit
+ *(.fini9)
+ *(.fini8)
+ *(.fini8)
+ *(.fini7)
+ *(.fini7)
+ *(.fini6)
+ *(.fini6)
+ *(.fini5)
+ *(.fini5)
+ *(.fini4)
+ *(.fini4)
+ *(.fini3)
+ *(.fini3)
+ *(.fini2)
+ *(.fini2)
+ *(.fini1)
+ *(.fini1)
+ *(.fini0)
+ .fini0         0x000019ae        0x4 /usr/lib/gcc/avr/4.4.2/avr51/libgcc.a(_exit.o)
+ *(.fini0)
+                0x000019b2                _etext = .
+
+.data           0x00800100       0xd2 load address 0x000019b2
+                0x00800100                PROVIDE (__data_start, .)
+ *(.data)
+ .data          0x00800100       0xaa MIDIHost.o
+                0x008001a1                Keyboard_MIDI_Interface
+ .data          0x008001aa        0xe ../../../../LUFA/Drivers/Peripheral/SerialStream.o
+                0x008001aa                USARTStream
+ .data          0x008001b8       0x18 ../../../../LUFA/Drivers/USB/LowLevel/Host.o
+ .data          0x008001d0        0x1 ../../../../LUFA/Drivers/USB/LowLevel/Pipe.o
+                0x008001d0                USB_ControlPipeSize
+ *(.data*)
+ *(.rodata)
+ *(.rodata*)
+ *(.gnu.linkonce.d*)
+                0x008001d2                . = ALIGN (0x2)
+ *fill*         0x008001d1        0x1 00
+                0x008001d2                _edata = .
+                0x008001d2                PROVIDE (__data_end, .)
+
+.bss            0x008001d2       0x14
+                0x008001d2                PROVIDE (__bss_start, .)
+ *(.bss)
+ .bss           0x008001d2        0x1 MIDIHost.o
+ .bss           0x008001d3        0x3 ../../../../LUFA/Drivers/USB/LowLevel/Host.o
+ *(.bss*)
+ *(COMMON)
+ COMMON         0x008001d6        0xa ../../../../LUFA/Drivers/USB/HighLevel/USBTask.o
+                0x008001d6                USB_IsInitialized
+                0x008001d7                USB_ControlRequest
+                0x008001df                USB_HostState
+ COMMON         0x008001e0        0x6 /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(iob.o)
+                0x008001e0                __iob
+                0x008001e6                PROVIDE (__bss_end, .)
+                0x000019b2                __data_load_start = LOADADDR (.data)
+                0x00001a84                __data_load_end = (__data_load_start + SIZEOF (.data))
+
+.noinit         0x008001e6        0x0
+                0x008001e6                PROVIDE (__noinit_start, .)
+ *(.noinit*)
+                0x008001e6                PROVIDE (__noinit_end, .)
+                0x008001e6                _end = .
+                0x008001e6                PROVIDE (__heap_start, .)
+
+.eeprom         0x00810000        0x0
+ *(.eeprom*)
+                0x00810000                __eeprom_end = .
+
+.stab           0x00000000     0x22e0
+ *(.stab)
+ .stab          0x00000000      0x750 /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/crtusb1287.o
+ .stab          0x00000750      0x300 /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(iob.o)
+                                0x30c (size before relaxing)
+ .stab          0x00000a50      0x1a4 /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(printf_p.o)
+                                0x384 (size before relaxing)
+ .stab          0x00000bf4      0x1d4 /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(puts.o)
+                                0x3b4 (size before relaxing)
+ .stab          0x00000dc8      0x294 /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(puts_p.o)
+                                0x474 (size before relaxing)
+ .stab          0x0000105c      0x984 /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(vfprintf_std.o)
+                                0xbf4 (size before relaxing)
+ .stab          0x000019e0       0x90 /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(eerd_byte_at90usb1287.o)
+                                 0x9c (size before relaxing)
+ .stab          0x00001a70       0xe4 /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(eewr_byte_at90usb1287.o)
+                                 0xf0 (size before relaxing)
+ .stab          0x00001b54       0x9c /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(strnlen_P.o)
+                                 0xa8 (size before relaxing)
+ .stab          0x00001bf0       0x9c /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(strnlen.o)
+                                 0xa8 (size before relaxing)
+ .stab          0x00001c8c      0x1d4 /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(fputc.o)
+                                0x3b4 (size before relaxing)
+ .stab          0x00001e60      0x480 /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(ultoa_invert.o)
+                                0x48c (size before relaxing)
+
+.stabstr        0x00000000      0xde9
+ *(.stabstr)
+ .stabstr       0x00000000      0xde9 /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/crtusb1287.o
+
+.stab.excl
+ *(.stab.excl)
+
+.stab.exclstr
+ *(.stab.exclstr)
+
+.stab.index
+ *(.stab.index)
+
+.stab.indexstr
+ *(.stab.indexstr)
+
+.comment
+ *(.comment)
+
+.debug
+ *(.debug)
+
+.line
+ *(.line)
+
+.debug_srcinfo
+ *(.debug_srcinfo)
+
+.debug_sfnames
+ *(.debug_sfnames)
+
+.debug_aranges  0x00000000      0x2d0
+ *(.debug_aranges)
+ .debug_aranges
+                0x00000000       0x58 MIDIHost.o
+ .debug_aranges
+                0x00000058       0x28 ../../../../LUFA/Drivers/Peripheral/SerialStream.o
+ .debug_aranges
+                0x00000080       0x28 ../../../../LUFA/Drivers/Peripheral/Serial.o
+ .debug_aranges
+                0x000000a8       0x48 ../../../../LUFA/Drivers/USB/LowLevel/Host.o
+ .debug_aranges
+                0x000000f0       0x28 ../../../../LUFA/Drivers/USB/LowLevel/HostChapter9.o
+ .debug_aranges
+                0x00000118       0x30 ../../../../LUFA/Drivers/USB/LowLevel/LowLevel.o
+ .debug_aranges
+                0x00000148       0x90 ../../../../LUFA/Drivers/USB/LowLevel/Pipe.o
+ .debug_aranges
+                0x000001d8       0x20 ../../../../LUFA/Drivers/USB/HighLevel/Events.o
+ .debug_aranges
+                0x000001f8       0x30 ../../../../LUFA/Drivers/USB/HighLevel/USBInterrupt.o
+ .debug_aranges
+                0x00000228       0x20 ../../../../LUFA/Drivers/USB/HighLevel/USBTask.o
+ .debug_aranges
+                0x00000248       0x40 ../../../../LUFA/Drivers/USB/HighLevel/ConfigDescriptor.o
+ .debug_aranges
+                0x00000288       0x48 ../../../../LUFA/Drivers/USB/Class/Host/MIDI.o
+
+.debug_pubnames
+                0x00000000      0x666
+ *(.debug_pubnames)
+ .debug_pubnames
+                0x00000000      0x11e MIDIHost.o
+ .debug_pubnames
+                0x0000011e       0x22 ../../../../LUFA/Drivers/Peripheral/SerialStream.o
+ .debug_pubnames
+                0x00000140       0x3c ../../../../LUFA/Drivers/Peripheral/Serial.o
+ .debug_pubnames
+                0x0000017c       0xa9 ../../../../LUFA/Drivers/USB/LowLevel/Host.o
+ .debug_pubnames
+                0x00000225       0x32 ../../../../LUFA/Drivers/USB/LowLevel/HostChapter9.o
+ .debug_pubnames
+                0x00000257       0x47 ../../../../LUFA/Drivers/USB/LowLevel/LowLevel.o
+ .debug_pubnames
+                0x0000029e      0x19a ../../../../LUFA/Drivers/USB/LowLevel/Pipe.o
+ .debug_pubnames
+                0x00000438       0x25 ../../../../LUFA/Drivers/USB/HighLevel/Events.o
+ .debug_pubnames
+                0x0000045d       0x62 ../../../../LUFA/Drivers/USB/HighLevel/USBInterrupt.o
+ .debug_pubnames
+                0x000004bf       0x61 ../../../../LUFA/Drivers/USB/HighLevel/USBTask.o
+ .debug_pubnames
+                0x00000520       0xc2 ../../../../LUFA/Drivers/USB/HighLevel/ConfigDescriptor.o
+ .debug_pubnames
+                0x000005e2       0x84 ../../../../LUFA/Drivers/USB/Class/Host/MIDI.o
+
+.debug_info     0x00000000     0x2df1
+ *(.debug_info)
+ .debug_info    0x00000000      0x792 MIDIHost.o
+ .debug_info    0x00000792      0x21d ../../../../LUFA/Drivers/Peripheral/SerialStream.o
+ .debug_info    0x000009af      0x163 ../../../../LUFA/Drivers/Peripheral/Serial.o
+ .debug_info    0x00000b12        0x0 ../../../../LUFA/Drivers/USB/LowLevel/DevChapter9.o
+ .debug_info    0x00000b12        0x0 ../../../../LUFA/Drivers/USB/LowLevel/Endpoint.o
+ .debug_info    0x00000b12      0x4eb ../../../../LUFA/Drivers/USB/LowLevel/Host.o
+ .debug_info    0x00000ffd      0x357 ../../../../LUFA/Drivers/USB/LowLevel/HostChapter9.o
+ .debug_info    0x00001354      0x16f ../../../../LUFA/Drivers/USB/LowLevel/LowLevel.o
+ .debug_info    0x000014c3      0xa07 ../../../../LUFA/Drivers/USB/LowLevel/Pipe.o
+ .debug_info    0x00001eca       0x76 ../../../../LUFA/Drivers/USB/HighLevel/Events.o
+ .debug_info    0x00001f40      0x165 ../../../../LUFA/Drivers/USB/HighLevel/USBInterrupt.o
+ .debug_info    0x000020a5      0x177 ../../../../LUFA/Drivers/USB/HighLevel/USBTask.o
+ .debug_info    0x0000221c      0x5a3 ../../../../LUFA/Drivers/USB/HighLevel/ConfigDescriptor.o
+ .debug_info    0x000027bf        0x0 ../../../../LUFA/Drivers/USB/Class/Device/MIDI.o
+ .debug_info    0x000027bf      0x632 ../../../../LUFA/Drivers/USB/Class/Host/MIDI.o
+ *(.gnu.linkonce.wi.*)
+
+.debug_abbrev   0x00000000      0xfcb
+ *(.debug_abbrev)
+ .debug_abbrev  0x00000000      0x26c MIDIHost.o
+ .debug_abbrev  0x0000026c      0x16f ../../../../LUFA/Drivers/Peripheral/SerialStream.o
+ .debug_abbrev  0x000003db       0xf7 ../../../../LUFA/Drivers/Peripheral/Serial.o
+ .debug_abbrev  0x000004d2        0x1 ../../../../LUFA/Drivers/USB/LowLevel/DevChapter9.o
+ .debug_abbrev  0x000004d3        0x1 ../../../../LUFA/Drivers/USB/LowLevel/Endpoint.o
+ .debug_abbrev  0x000004d4      0x1ff ../../../../LUFA/Drivers/USB/LowLevel/Host.o
+ .debug_abbrev  0x000006d3      0x19f ../../../../LUFA/Drivers/USB/LowLevel/HostChapter9.o
+ .debug_abbrev  0x00000872       0xce ../../../../LUFA/Drivers/USB/LowLevel/LowLevel.o
+ .debug_abbrev  0x00000940      0x1c1 ../../../../LUFA/Drivers/USB/LowLevel/Pipe.o
+ .debug_abbrev  0x00000b01       0x41 ../../../../LUFA/Drivers/USB/HighLevel/Events.o
+ .debug_abbrev  0x00000b42       0x96 ../../../../LUFA/Drivers/USB/HighLevel/USBInterrupt.o
+ .debug_abbrev  0x00000bd8       0xcc ../../../../LUFA/Drivers/USB/HighLevel/USBTask.o
+ .debug_abbrev  0x00000ca4      0x1aa ../../../../LUFA/Drivers/USB/HighLevel/ConfigDescriptor.o
+ .debug_abbrev  0x00000e4e        0x1 ../../../../LUFA/Drivers/USB/Class/Device/MIDI.o
+ .debug_abbrev  0x00000e4f      0x17c ../../../../LUFA/Drivers/USB/Class/Host/MIDI.o
+
+.debug_line     0x00000000     0x29b3
+ *(.debug_line)
+ .debug_line    0x00000000      0x607 MIDIHost.o
+ .debug_line    0x00000607      0x12b ../../../../LUFA/Drivers/Peripheral/SerialStream.o
+ .debug_line    0x00000732      0x14a ../../../../LUFA/Drivers/Peripheral/Serial.o
+ .debug_line    0x0000087c       0x24 ../../../../LUFA/Drivers/USB/LowLevel/DevChapter9.o
+ .debug_line    0x000008a0       0x24 ../../../../LUFA/Drivers/USB/LowLevel/Endpoint.o
+ .debug_line    0x000008c4      0x63a ../../../../LUFA/Drivers/USB/LowLevel/Host.o
+ .debug_line    0x00000efe      0x3aa ../../../../LUFA/Drivers/USB/LowLevel/HostChapter9.o
+ .debug_line    0x000012a8      0x23f ../../../../LUFA/Drivers/USB/LowLevel/LowLevel.o
+ .debug_line    0x000014e7      0x8f5 ../../../../LUFA/Drivers/USB/LowLevel/Pipe.o
+ .debug_line    0x00001ddc       0x8e ../../../../LUFA/Drivers/USB/HighLevel/Events.o
+ .debug_line    0x00001e6a      0x2a2 ../../../../LUFA/Drivers/USB/HighLevel/USBInterrupt.o
+ .debug_line    0x0000210c      0x100 ../../../../LUFA/Drivers/USB/HighLevel/USBTask.o
+ .debug_line    0x0000220c      0x350 ../../../../LUFA/Drivers/USB/HighLevel/ConfigDescriptor.o
+ .debug_line    0x0000255c       0x24 ../../../../LUFA/Drivers/USB/Class/Device/MIDI.o
+ .debug_line    0x00002580      0x433 ../../../../LUFA/Drivers/USB/Class/Host/MIDI.o
+
+.debug_frame    0x00000000      0x420
+ *(.debug_frame)
+ .debug_frame   0x00000000       0x90 MIDIHost.o
+ .debug_frame   0x00000090       0x30 ../../../../LUFA/Drivers/Peripheral/SerialStream.o
+ .debug_frame   0x000000c0       0x30 ../../../../LUFA/Drivers/Peripheral/Serial.o
+ .debug_frame   0x000000f0       0x70 ../../../../LUFA/Drivers/USB/LowLevel/Host.o
+ .debug_frame   0x00000160       0x30 ../../../../LUFA/Drivers/USB/LowLevel/HostChapter9.o
+ .debug_frame   0x00000190       0x40 ../../../../LUFA/Drivers/USB/LowLevel/LowLevel.o
+ .debug_frame   0x000001d0      0x100 ../../../../LUFA/Drivers/USB/LowLevel/Pipe.o
+ .debug_frame   0x000002d0       0x20 ../../../../LUFA/Drivers/USB/HighLevel/Events.o
+ .debug_frame   0x000002f0       0x40 ../../../../LUFA/Drivers/USB/HighLevel/USBInterrupt.o
+ .debug_frame   0x00000330       0x20 ../../../../LUFA/Drivers/USB/HighLevel/USBTask.o
+ .debug_frame   0x00000350       0x60 ../../../../LUFA/Drivers/USB/HighLevel/ConfigDescriptor.o
+ .debug_frame   0x000003b0       0x70 ../../../../LUFA/Drivers/USB/Class/Host/MIDI.o
+
+.debug_str      0x00000000     0x1902
+ *(.debug_str)
+ .debug_str     0x00000000      0x82d MIDIHost.o
+                                0x88d (size before relaxing)
+ .debug_str     0x0000082d       0x80 ../../../../LUFA/Drivers/Peripheral/SerialStream.o
+                                0x188 (size before relaxing)
+ .debug_str     0x000008ad       0x79 ../../../../LUFA/Drivers/Peripheral/Serial.o
+                                0x174 (size before relaxing)
+ .debug_str     0x00000926      0x489 ../../../../LUFA/Drivers/USB/LowLevel/Host.o
+                                0x7d0 (size before relaxing)
+ .debug_str     0x00000daf      0x15b ../../../../LUFA/Drivers/USB/LowLevel/HostChapter9.o
+                                0x3ff (size before relaxing)
+ .debug_str     0x00000f0a       0x6c ../../../../LUFA/Drivers/USB/LowLevel/LowLevel.o
+                                0x2ed (size before relaxing)
+ .debug_str     0x00000f76      0x368 ../../../../LUFA/Drivers/USB/LowLevel/Pipe.o
+                                0x65c (size before relaxing)
+ .debug_str     0x000012de       0x3f ../../../../LUFA/Drivers/USB/HighLevel/Events.o
+                                0x103 (size before relaxing)
+ .debug_str     0x0000131d       0xaa ../../../../LUFA/Drivers/USB/HighLevel/USBInterrupt.o
+                                0x3b8 (size before relaxing)
+ .debug_str     0x000013c7       0x53 ../../../../LUFA/Drivers/USB/HighLevel/USBTask.o
+                                0x1a3 (size before relaxing)
+ .debug_str     0x0000141a      0x2e8 ../../../../LUFA/Drivers/USB/HighLevel/ConfigDescriptor.o
+                                0x77c (size before relaxing)
+ .debug_str     0x00001702      0x200 ../../../../LUFA/Drivers/USB/Class/Host/MIDI.o
+                                0x977 (size before relaxing)
+
+.debug_loc      0x00000000     0x184e
+ *(.debug_loc)
+ .debug_loc     0x00000000      0x109 MIDIHost.o
+ .debug_loc     0x00000109       0x2b ../../../../LUFA/Drivers/Peripheral/SerialStream.o
+ .debug_loc     0x00000134      0x1d8 ../../../../LUFA/Drivers/USB/LowLevel/Host.o
+ .debug_loc     0x0000030c      0x1d4 ../../../../LUFA/Drivers/USB/LowLevel/HostChapter9.o
+ .debug_loc     0x000004e0       0x13 ../../../../LUFA/Drivers/USB/LowLevel/LowLevel.o
+ .debug_loc     0x000004f3      0xdd0 ../../../../LUFA/Drivers/USB/LowLevel/Pipe.o
+ .debug_loc     0x000012c3       0x13 ../../../../LUFA/Drivers/USB/HighLevel/USBTask.o
+ .debug_loc     0x000012d6      0x2f3 ../../../../LUFA/Drivers/USB/HighLevel/ConfigDescriptor.o
+ .debug_loc     0x000015c9      0x285 ../../../../LUFA/Drivers/USB/Class/Host/MIDI.o
+
+.debug_macinfo
+ *(.debug_macinfo)
+OUTPUT(MIDIHost.elf elf32-avr)
+LOAD linker stubs
+
+.debug_ranges   0x00000000      0x2e8
+ .debug_ranges  0x00000000       0x80 MIDIHost.o
+ .debug_ranges  0x00000080       0x20 ../../../../LUFA/Drivers/Peripheral/SerialStream.o
+ .debug_ranges  0x000000a0       0x20 ../../../../LUFA/Drivers/Peripheral/Serial.o
+ .debug_ranges  0x000000c0       0x88 ../../../../LUFA/Drivers/USB/LowLevel/Host.o
+ .debug_ranges  0x00000148       0x20 ../../../../LUFA/Drivers/USB/LowLevel/HostChapter9.o
+ .debug_ranges  0x00000168       0x28 ../../../../LUFA/Drivers/USB/LowLevel/LowLevel.o
+ .debug_ranges  0x00000190       0x88 ../../../../LUFA/Drivers/USB/LowLevel/Pipe.o
+ .debug_ranges  0x00000218       0x18 ../../../../LUFA/Drivers/USB/HighLevel/Events.o
+ .debug_ranges  0x00000230       0x28 ../../../../LUFA/Drivers/USB/HighLevel/USBInterrupt.o
+ .debug_ranges  0x00000258       0x18 ../../../../LUFA/Drivers/USB/HighLevel/USBTask.o
+ .debug_ranges  0x00000270       0x38 ../../../../LUFA/Drivers/USB/HighLevel/ConfigDescriptor.o
+ .debug_ranges  0x000002a8       0x40 ../../../../LUFA/Drivers/USB/Class/Host/MIDI.o
+
+Cross Reference Table
+
+Symbol                                            File
+CheckJoystickMovement                             MIDIHost.o
+EVENT_USB_Host_DeviceAttached                     MIDIHost.o
+                                                  ../../../../LUFA/Drivers/USB/HighLevel/USBInterrupt.o
+EVENT_USB_Host_DeviceEnumerationComplete          MIDIHost.o
+                                                  ../../../../LUFA/Drivers/USB/LowLevel/Host.o
+EVENT_USB_Host_DeviceEnumerationFailed            MIDIHost.o
+                                                  ../../../../LUFA/Drivers/USB/HighLevel/USBInterrupt.o
+                                                  ../../../../LUFA/Drivers/USB/LowLevel/Host.o
+EVENT_USB_Host_DeviceUnattached                   MIDIHost.o
+                                                  ../../../../LUFA/Drivers/USB/HighLevel/USBInterrupt.o
+                                                  ../../../../LUFA/Drivers/USB/LowLevel/Host.o
+EVENT_USB_Host_HostError                          MIDIHost.o
+                                                  ../../../../LUFA/Drivers/USB/HighLevel/USBInterrupt.o
+Keyboard_MIDI_Interface                           MIDIHost.o
+MIDI_Host_ConfigurePipes                          ../../../../LUFA/Drivers/USB/Class/Host/MIDI.o
+                                                  MIDIHost.o
+MIDI_Host_ReceiveEventPacket                      ../../../../LUFA/Drivers/USB/Class/Host/MIDI.o
+                                                  MIDIHost.o
+MIDI_Host_SendEventPacket                         ../../../../LUFA/Drivers/USB/Class/Host/MIDI.o
+                                                  MIDIHost.o
+MIDI_Host_USBTask                                 ../../../../LUFA/Drivers/USB/Class/Host/MIDI.o
+                                                  MIDIHost.o
+Pipe_ClearPipes                                   ../../../../LUFA/Drivers/USB/LowLevel/Pipe.o
+                                                  ../../../../LUFA/Drivers/USB/LowLevel/Host.o
+Pipe_ConfigurePipe                                ../../../../LUFA/Drivers/USB/LowLevel/Pipe.o
+                                                  ../../../../LUFA/Drivers/USB/Class/Host/MIDI.o
+                                                  ../../../../LUFA/Drivers/USB/LowLevel/Host.o
+Pipe_Discard_Stream                               ../../../../LUFA/Drivers/USB/LowLevel/Pipe.o
+Pipe_IsEndpointBound                              ../../../../LUFA/Drivers/USB/LowLevel/Pipe.o
+                                                  ../../../../LUFA/Drivers/USB/Class/Host/MIDI.o
+Pipe_Read_EStream_BE                              ../../../../LUFA/Drivers/USB/LowLevel/Pipe.o
+Pipe_Read_EStream_LE                              ../../../../LUFA/Drivers/USB/LowLevel/Pipe.o
+Pipe_Read_Stream_BE                               ../../../../LUFA/Drivers/USB/LowLevel/Pipe.o
+Pipe_Read_Stream_LE                               ../../../../LUFA/Drivers/USB/LowLevel/Pipe.o
+                                                  ../../../../LUFA/Drivers/USB/Class/Host/MIDI.o
+Pipe_WaitUntilReady                               ../../../../LUFA/Drivers/USB/LowLevel/Pipe.o
+Pipe_Write_EStream_BE                             ../../../../LUFA/Drivers/USB/LowLevel/Pipe.o
+Pipe_Write_EStream_LE                             ../../../../LUFA/Drivers/USB/LowLevel/Pipe.o
+Pipe_Write_PStream_BE                             ../../../../LUFA/Drivers/USB/LowLevel/Pipe.o
+Pipe_Write_PStream_LE                             ../../../../LUFA/Drivers/USB/LowLevel/Pipe.o
+Pipe_Write_Stream_BE                              ../../../../LUFA/Drivers/USB/LowLevel/Pipe.o
+Pipe_Write_Stream_LE                              ../../../../LUFA/Drivers/USB/LowLevel/Pipe.o
+                                                  ../../../../LUFA/Drivers/USB/Class/Host/MIDI.o
+Serial_TxString                                   ../../../../LUFA/Drivers/Peripheral/Serial.o
+Serial_TxString_P                                 ../../../../LUFA/Drivers/Peripheral/Serial.o
+SetupHardware                                     MIDIHost.o
+USARTStream                                       ../../../../LUFA/Drivers/Peripheral/SerialStream.o
+                                                  MIDIHost.o
+USB_ControlPipeSize                               ../../../../LUFA/Drivers/USB/LowLevel/Pipe.o
+                                                  ../../../../LUFA/Drivers/USB/LowLevel/LowLevel.o
+                                                  ../../../../LUFA/Drivers/USB/LowLevel/HostChapter9.o
+                                                  ../../../../LUFA/Drivers/USB/LowLevel/Host.o
+USB_ControlRequest                                ../../../../LUFA/Drivers/USB/HighLevel/ConfigDescriptor.o
+                                                  ../../../../LUFA/Drivers/USB/HighLevel/USBTask.o
+                                                  ../../../../LUFA/Drivers/USB/LowLevel/HostChapter9.o
+                                                  ../../../../LUFA/Drivers/USB/LowLevel/Host.o
+USB_Event_Stub                                    ../../../../LUFA/Drivers/USB/HighLevel/Events.o
+USB_GetNextDescriptorComp                         ../../../../LUFA/Drivers/USB/HighLevel/ConfigDescriptor.o
+                                                  ../../../../LUFA/Drivers/USB/Class/Host/MIDI.o
+USB_GetNextDescriptorOfType                       ../../../../LUFA/Drivers/USB/HighLevel/ConfigDescriptor.o
+USB_GetNextDescriptorOfTypeAfter                  ../../../../LUFA/Drivers/USB/HighLevel/ConfigDescriptor.o
+USB_GetNextDescriptorOfTypeBefore                 ../../../../LUFA/Drivers/USB/HighLevel/ConfigDescriptor.o
+USB_HostState                                     ../../../../LUFA/Drivers/USB/Class/Host/MIDI.o
+                                                  ../../../../LUFA/Drivers/USB/HighLevel/USBTask.o
+                                                  ../../../../LUFA/Drivers/USB/HighLevel/USBInterrupt.o
+                                                  ../../../../LUFA/Drivers/USB/LowLevel/Pipe.o
+                                                  ../../../../LUFA/Drivers/USB/LowLevel/LowLevel.o
+                                                  ../../../../LUFA/Drivers/USB/LowLevel/Host.o
+                                                  MIDIHost.o
+USB_Host_ClearPipeStall                           ../../../../LUFA/Drivers/USB/LowLevel/Host.o
+USB_Host_GetDeviceConfigDescriptor                ../../../../LUFA/Drivers/USB/HighLevel/ConfigDescriptor.o
+                                                  MIDIHost.o
+USB_Host_GetDeviceDescriptor                      ../../../../LUFA/Drivers/USB/LowLevel/Host.o
+USB_Host_ProcessNextHostState                     ../../../../LUFA/Drivers/USB/LowLevel/Host.o
+                                                  ../../../../LUFA/Drivers/USB/HighLevel/USBTask.o
+USB_Host_SendControlRequest                       ../../../../LUFA/Drivers/USB/LowLevel/HostChapter9.o
+                                                  ../../../../LUFA/Drivers/USB/HighLevel/ConfigDescriptor.o
+                                                  ../../../../LUFA/Drivers/USB/LowLevel/Host.o
+USB_Host_SetDeviceConfiguration                   ../../../../LUFA/Drivers/USB/LowLevel/Host.o
+                                                  MIDIHost.o
+USB_Host_WaitMS                                   ../../../../LUFA/Drivers/USB/LowLevel/Host.o
+                                                  ../../../../LUFA/Drivers/USB/LowLevel/HostChapter9.o
+USB_INT_ClearAllInterrupts                        ../../../../LUFA/Drivers/USB/HighLevel/USBInterrupt.o
+                                                  ../../../../LUFA/Drivers/USB/LowLevel/LowLevel.o
+USB_INT_DisableAllInterrupts                      ../../../../LUFA/Drivers/USB/HighLevel/USBInterrupt.o
+                                                  ../../../../LUFA/Drivers/USB/LowLevel/LowLevel.o
+USB_Init                                          ../../../../LUFA/Drivers/USB/LowLevel/LowLevel.o
+                                                  MIDIHost.o
+USB_IsInitialized                                 ../../../../LUFA/Drivers/USB/HighLevel/USBTask.o
+                                                  ../../../../LUFA/Drivers/USB/LowLevel/LowLevel.o
+USB_ResetInterface                                ../../../../LUFA/Drivers/USB/LowLevel/LowLevel.o
+                                                  ../../../../LUFA/Drivers/USB/HighLevel/USBInterrupt.o
+                                                  ../../../../LUFA/Drivers/USB/LowLevel/Host.o
+USB_ShutDown                                      ../../../../LUFA/Drivers/USB/LowLevel/LowLevel.o
+                                                  MIDIHost.o
+USB_USBTask                                       ../../../../LUFA/Drivers/USB/HighLevel/USBTask.o
+                                                  MIDIHost.o
+__bad_interrupt                                   /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/crtusb1287.o
+__bss_end                                         /usr/lib/gcc/avr/4.4.2/avr51/libgcc.a(_clear_bss.o)
+__bss_start                                       /usr/lib/gcc/avr/4.4.2/avr51/libgcc.a(_clear_bss.o)
+__data_end                                        /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/crtusb1287.o
+__data_load_start                                 /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/crtusb1287.o
+__data_start                                      /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/crtusb1287.o
+__do_clear_bss                                    /usr/lib/gcc/avr/4.4.2/avr51/libgcc.a(_clear_bss.o)
+                                                  /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(fputc.o)
+                                                  /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(vfprintf_std.o)
+                                                  /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(puts_p.o)
+                                                  /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(puts.o)
+                                                  /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(printf_p.o)
+                                                  /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(iob.o)
+                                                  ../../../../LUFA/Drivers/USB/Class/Host/MIDI.o
+                                                  ../../../../LUFA/Drivers/USB/Class/Device/MIDI.o
+                                                  ../../../../LUFA/Drivers/USB/HighLevel/ConfigDescriptor.o
+                                                  ../../../../LUFA/Drivers/USB/HighLevel/USBTask.o
+                                                  ../../../../LUFA/Drivers/USB/HighLevel/USBInterrupt.o
+                                                  ../../../../LUFA/Drivers/USB/HighLevel/Events.o
+                                                  ../../../../LUFA/Drivers/USB/LowLevel/Pipe.o
+                                                  ../../../../LUFA/Drivers/USB/LowLevel/LowLevel.o
+                                                  ../../../../LUFA/Drivers/USB/LowLevel/HostChapter9.o
+                                                  ../../../../LUFA/Drivers/USB/LowLevel/Host.o
+                                                  ../../../../LUFA/Drivers/USB/LowLevel/Endpoint.o
+                                                  ../../../../LUFA/Drivers/USB/LowLevel/DevChapter9.o
+                                                  ../../../../LUFA/Drivers/Peripheral/Serial.o
+                                                  ../../../../LUFA/Drivers/Peripheral/SerialStream.o
+                                                  MIDIHost.o
+__do_copy_data                                    /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/crtusb1287.o
+                                                  /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(fputc.o)
+                                                  /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(vfprintf_std.o)
+                                                  /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(puts_p.o)
+                                                  /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(puts.o)
+                                                  /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(printf_p.o)
+                                                  /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(iob.o)
+                                                  ../../../../LUFA/Drivers/USB/Class/Host/MIDI.o
+                                                  ../../../../LUFA/Drivers/USB/Class/Device/MIDI.o
+                                                  ../../../../LUFA/Drivers/USB/HighLevel/ConfigDescriptor.o
+                                                  ../../../../LUFA/Drivers/USB/HighLevel/USBTask.o
+                                                  ../../../../LUFA/Drivers/USB/HighLevel/USBInterrupt.o
+                                                  ../../../../LUFA/Drivers/USB/HighLevel/Events.o
+                                                  ../../../../LUFA/Drivers/USB/LowLevel/Pipe.o
+                                                  ../../../../LUFA/Drivers/USB/LowLevel/LowLevel.o
+                                                  ../../../../LUFA/Drivers/USB/LowLevel/HostChapter9.o
+                                                  ../../../../LUFA/Drivers/USB/LowLevel/Host.o
+                                                  ../../../../LUFA/Drivers/USB/LowLevel/Endpoint.o
+                                                  ../../../../LUFA/Drivers/USB/LowLevel/DevChapter9.o
+                                                  ../../../../LUFA/Drivers/Peripheral/Serial.o
+                                                  ../../../../LUFA/Drivers/Peripheral/SerialStream.o
+                                                  MIDIHost.o
+__eerd_byte_usb1287                               /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(eerd_byte_at90usb1287.o)
+                                                  ../../../../LUFA/Drivers/USB/LowLevel/Pipe.o
+__eewr_byte_usb1287                               /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(eewr_byte_at90usb1287.o)
+                                                  ../../../../LUFA/Drivers/USB/LowLevel/Pipe.o
+__eewr_r18_usb1287                                /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(eewr_byte_at90usb1287.o)
+__heap_end                                        /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/crtusb1287.o
+__init                                            /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/crtusb1287.o
+__iob                                             /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(puts_p.o)
+                                                  /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(puts.o)
+                                                  /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(printf_p.o)
+                                                  /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(iob.o)
+                                                  MIDIHost.o
+__stack                                           /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/crtusb1287.o
+__ultoa_invert                                    /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(ultoa_invert.o)
+                                                  /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(vfprintf_std.o)
+__vector_1                                        /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/crtusb1287.o
+__vector_10                                       ../../../../LUFA/Drivers/USB/HighLevel/USBInterrupt.o
+                                                  /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/crtusb1287.o
+__vector_11                                       /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/crtusb1287.o
+__vector_12                                       /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/crtusb1287.o
+__vector_13                                       /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/crtusb1287.o
+__vector_14                                       /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/crtusb1287.o
+__vector_15                                       /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/crtusb1287.o
+__vector_16                                       /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/crtusb1287.o
+__vector_17                                       /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/crtusb1287.o
+__vector_18                                       /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/crtusb1287.o
+__vector_19                                       /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/crtusb1287.o
+__vector_2                                        /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/crtusb1287.o
+__vector_20                                       /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/crtusb1287.o
+__vector_21                                       /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/crtusb1287.o
+__vector_22                                       /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/crtusb1287.o
+__vector_23                                       /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/crtusb1287.o
+__vector_24                                       /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/crtusb1287.o
+__vector_25                                       /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/crtusb1287.o
+__vector_26                                       /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/crtusb1287.o
+__vector_27                                       /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/crtusb1287.o
+__vector_28                                       /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/crtusb1287.o
+__vector_29                                       /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/crtusb1287.o
+__vector_3                                        /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/crtusb1287.o
+__vector_30                                       /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/crtusb1287.o
+__vector_31                                       /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/crtusb1287.o
+__vector_32                                       /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/crtusb1287.o
+__vector_33                                       /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/crtusb1287.o
+__vector_34                                       /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/crtusb1287.o
+__vector_35                                       /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/crtusb1287.o
+__vector_36                                       /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/crtusb1287.o
+__vector_37                                       /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/crtusb1287.o
+__vector_4                                        /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/crtusb1287.o
+__vector_5                                        /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/crtusb1287.o
+__vector_6                                        /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/crtusb1287.o
+__vector_7                                        /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/crtusb1287.o
+__vector_8                                        /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/crtusb1287.o
+__vector_9                                        /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/crtusb1287.o
+__vector_default                                  /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/crtusb1287.o
+__vectors                                         /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/crtusb1287.o
+_exit                                             /usr/lib/gcc/avr/4.4.2/avr51/libgcc.a(_exit.o)
+exit                                              /usr/lib/gcc/avr/4.4.2/avr51/libgcc.a(_exit.o)
+                                                  /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/crtusb1287.o
+fputc                                             /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(fputc.o)
+                                                  /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(vfprintf_std.o)
+main                                              MIDIHost.o
+                                                  /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/crtusb1287.o
+printf_P                                          /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(printf_p.o)
+                                                  MIDIHost.o
+puts                                              /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(puts.o)
+                                                  MIDIHost.o
+puts_P                                            /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(puts_p.o)
+                                                  MIDIHost.o
+strnlen                                           /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(strnlen.o)
+                                                  /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(vfprintf_std.o)
+strnlen_P                                         /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(strnlen_P.o)
+                                                  /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(vfprintf_std.o)
+vfprintf                                          /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(vfprintf_std.o)
+                                                  /usr/lib/gcc/avr/4.4.2/../../../../avr/lib/avr51/libc.a(printf_p.o)

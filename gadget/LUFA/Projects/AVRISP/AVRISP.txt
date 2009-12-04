@@ -1,0 +1,140 @@
+/** \file
+ *
+ *  This file contains special DoxyGen information for the generation of the main page and other special
+ *  documentation pages. It is not a project source file.
+ */
+ 
+/** \mainpage AVRISP MKII Programmer Project
+ *
+ *  \section SSec_Compat Demo Compatibility:
+ *
+ *  The following list indicates what microcontrollers are compatible with this demo.
+ *
+ *  - Series 7 USB AVRs
+ *  - Series 6 USB AVRs
+ *  - Series 4 USB AVRs
+ *  - Series 2 USB AVRs
+ *
+ *  \section SSec_Info USB Information:
+ *
+ *  The following table gives a rundown of the USB utilization of this demo.
+ *
+ * <table>
+ *  <tr>
+ *   <td><b>USB Mode:</b></td>
+ *   <td>Device</td>
+ *  </tr>
+ *  <tr>
+ *   <td><b>USB Class:</b></td>
+ *   <td>Vendor Specific Class</td>
+ *  </tr>
+ *  <tr> 
+ *   <td><b>USB Subclass:</b></td>
+ *   <td>N/A</td>
+ *  </tr>
+ *  <tr>
+ *   <td><b>Relevant Standards:</b></td>
+ *   <td>Atmel AVRISP MKII Protocol Specification</td>
+ *  </tr>
+ *  <tr>
+ *   <td><b>Usable Speeds:</b></td>
+ *   <td>Full Speed Mode</td>
+ *  </tr>
+ * </table>
+ *
+ *  \section SSec_Description Project Description: 
+ *
+ *  Firmware for an AVRStudio compatible AVRISP-MKII clone programmer. This project will enable the USB AVR series of
+ *  microcontrollers to act as a clone of the official Atmel AVRISP-MKII programmer, usable within AVRStudio. In its
+ *  most basic form, it allows for the programming of 5V AVRs from within AVRStudio with no special hardware other than
+ *  the USB AVR and the parts needed for the USB interface. If the user desires, more advanced circuits incorporating
+ *  level conversion can be made to allow for the programming of 3.3V AVR designs.
+ *
+ *  This device spoofs Atmel's official AVRISP-MKII device PID so that it remains compatible with Atmel's AVRISP-MKII
+ *  drivers. When promted, direct your OS to install Atmel's AVRISP-MKII drivers provided with AVRStudio.
+ *
+ *  Note that this design currently has several limitations:
+ *    - Minimum target clock speed of 500KHz due to hardware SPI used
+ *    - No reversed/shorted target connector detection and notification
+ *
+ *  On AVR models with an ADC converter, ACC should be tied to 5V (e.g. VBUS) and the VTARGET_ADC_CHANNEL token should be
+ *  set to an appropriate ADC channel number in the project makefile for VTARGET detection to operate correctly. On models
+ *  without an ADC converter, VTARGET will report at a fixed 5V level.
+ *
+ *  Connections to the device are simple:
+ *
+ *  <table>
+ *   <tr>
+ *    <td><b>Programmer Pin:</b></td>
+ *    <td><b>Target Device Pin:</b></td>
+ *    <td><b>ISP 6 Pin Layout:</b></td>
+ *   </tr>
+ *   <tr>
+ *    <td>MISO</td>
+ *    <td>PDO</td>
+ *    <td>1</td>
+ *   </tr>
+ *   <tr>
+ *    <td>ADCx <b><sup>1</sup></b></td>
+ *    <td>VTARGET</td>
+ *    <td>2</td>
+ *   </tr>
+ *   <tr>
+ *    <td>SCLK</td>
+ *    <td>SCLK</td>
+ *    <td>3</td>
+ *   </tr>
+ *   <tr>
+ *    <td>MOSI</td>
+ *    <td>PDI</td>
+ *    <td>4</td>
+ *   </tr>
+ *   <tr>
+ *    <td>PORTx.y <b><sup>2</sup></b></td>
+ *    <td>/RESET</td>
+ *    <td>5</td>
+ *   </tr>
+ *   <tr>
+ *    <td>GND</td>
+ *    <td>GND</td>
+ *    <td>6</td>
+ *   </tr>
+ *  </table>
+ *
+ *  <b><sup>1</sup></b> <i>Optional, see \ref SSec_Options section - for USB AVRs with ADC modules only</i> \n
+ *  <b><sup>2</sup></b> <i>See \ref SSec_Options section</i>
+ *
+ *  \section SSec_Options Project Options
+ *
+ *  The following defines can be found in this demo, which can control the demo behaviour when defined, or changed in value.
+ *
+ *  <table>
+ *   <tr>
+ *    <td><b>Define Name:</b></td>
+ *    <td><b>Location:</b></td>
+ *    <td><b>Description:</b></td>
+ *   </tr>
+ *   <tr>
+ *    <td>RESET_LINE_PORT</td>
+ *    <td>Makefile CDEFS</td>
+ *    <td>PORT register for the programmer's target RESET line.</td>
+ *   </tr>
+ *   <tr>
+ *    <td>RESET_LINE_DDR</td>
+ *    <td>Makefile CDEFS</td>
+ *    <td>DDR register for the programmer's target RESET line.</td>
+ *   </tr>
+ *   <tr>
+ *    <td>RESET_LINE_MASK</td>
+ *    <td>Makefile CDEFS</td>
+ *    <td>Mask for the programmer's target RESET line on the chosen port. <b>Must not be the AVR's /SS pin</b>, as the
+ *        target pins are tri-stated when not in use, and low signals on the /SS pin will force SPI slave mode when the
+ *        pin is configured as an input.</td>
+ *   </tr>
+ *   <tr>
+ *    <td>VTARGET_ADC_CHANNEL</td>
+ *    <td>Makefile CDEFS</td>
+ *    <td>ADC channel number (on supported AVRs) to use for VTARGET level detection.</td> 
+ *   </tr>
+ *  </table>
+ */
