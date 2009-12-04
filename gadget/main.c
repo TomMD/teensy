@@ -13,10 +13,11 @@
 
 #include "desc.h"
 
+/*
 int read_cmd()
 {
-//	Endpoint_SelectEndpoint(CTRL_OUT_EPNUM);
-//	Endpoint_
+	Endpoint_SelectEndpoint(CTRL_OUT_EPNUM);
+	Endpoint_Read_Stream_LE
 	return 0;
 }
 
@@ -31,14 +32,19 @@ void EVENT_USB_Device_ConfigurationChanged(void)
 void handle_cmd(int cmd)
 {
 }
-
+*/
 int main(void)
 {
 	int cmd;
 
 	USB_Init();
+/*
 	while(cmd = read_cmd()) {
 		handle_cmd(cmd);
+	}
+*/
+	while(1) {
+		USB_USBTask();
 	}
 	return 0;
 }
