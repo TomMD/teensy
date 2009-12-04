@@ -63,9 +63,9 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 
                         .TotalEndpoints         = 4,
 
-                        .Class                  = 0x08,
-                        .SubClass               = 0x06,
-                        .Protocol               = 0x50,
+                        .Class                  = 0xff,
+                        .SubClass               = 0xaa,
+                        .Protocol               = 0x0,
 
                         .InterfaceStrIndex      = NO_DESCRIPTOR
                 },
