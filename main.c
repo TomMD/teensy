@@ -225,34 +225,46 @@ int teensy_probe(struct usb_interface *intf, const struct usb_device_id *id) {
 
     /* setup read_endpoint if this is the bulk in endpoint */
     if (!dev->read_endpoint &&                       /* we haven't set EP yet */
-        usb_endpoint_is_bulk_in(curr_endpoint)) {    /* type is BULK IN */
+        usb_endpoint_is_int_in(curr_endpoint)) {    /* type is BULK IN */
       dev->read_endpoint = curr_endpoint->bEndpointAddress;
       dev->read_size     = curr_endpoint->wMaxPacketSize;
     }
 
     /* setup write_endpoint if this is the bulk in endpoint */
-    if (!dev->write_endpoint &&                      /* we haven't set EP yet */
-        usb_endpoint_is_bulk_out(curr_endpoint)) {   /* type is BULK OUT */
+    else if (!dev->write_endpoint &&                      /* we haven't set EP yet */
+        usb_endpoint_is_int_out(curr_endpoint)) {   /* type is BULK OUT */
       dev->write_endpoint = curr_endpoint->bEndpointAddress;
     }
 
     /* setup del_endpoint if this is the control out endpoint */
-    if (!dev->del_endpoint &&                        /* we haven't set EP yet */
+    else if (!dev->del_endpoint &&                        /* we haven't set EP yet */
         usb_endpoint_dir_out(curr_endpoint) &&       /* direction is OUT */
         usb_endpoint_xfer_control(curr_endpoint)) {  /* type is CONTROL */
       dev->del_endpoint = curr_endpoint->bEndpointAddress;
     }
 
     /* setup err_endpoint if this is the control in endpoint */
-    if (!dev->err_endpoint &&                       /* we haven't set EP yet */
+    else if (!dev->err_endpoint &&                       /* we haven't set EP yet */
         usb_endpoint_dir_in(curr_endpoint) &&       /* direction is IN */
         usb_endpoint_xfer_control(curr_endpoint)) { /* type is CONTROL */
       dev->err_endpoint = curr_endpoint->bEndpointAddress;
+    }
+    else {
+      printk(KERN_WARNING "teensy_usb: unknown endpoint.\n");
+      printk(KERN_WARNING "\tin?   %d", usb_endpoint_dir_in(curr_endpoint));
+      printk(KERN_WARNING "\tout?  %d", usb_endpoint_dir_out(curr_endpoint));
+      printk(KERN_WARNING "\tbulk? %d", usb_endpoint_xfer_bulk(curr_endpoint));
+      printk(KERN_WARNING "\tctrl? %d", usb_endpoint_xfer_control(curr_endpoint));
+      printk(KERN_WARNING "\tint?  %d", usb_endpoint_xfer_int(curr_endpoint));
+      printk(KERN_WARNING "\tisoc? %d", usb_endpoint_xfer_isoc(curr_endpoint));
     }
   }
 
   if (!dev->read_endpoint || !dev->write_endpoint ||
       !dev->del_endpoint  || !dev->err_endpoint) {
+    printk(KERN_WARNING "usb-teensy: Bad endpoint (read, write, del, err):"
+		"%d %d %d %d\n", dev->read_endpoint, dev->write_endpoint,
+		dev->del_endpoint, dev->err_endpoint);
     result = -ENOSYS;
     goto fail_after_setup;
   }
