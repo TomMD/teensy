@@ -44,11 +44,26 @@
 # Group  : Rebekah Leslien & Thomas DuBuisson
 
 # Target file name (without extension).
-TARGET = teensy_main
+#TARGET = teensy_main
+TARGET = main
+
+LUFA_PATH = LUFA
 
 # List C source files here. (C dependencies are automatically generated.)
 SRC =	$(TARGET).c \
-	    teensy_blobs.c \
+	   teensy_blobs.c \
+	    desc.c						\
+          $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/DevChapter9.c        \
+          $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/Endpoint.c           \
+          $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/LowLevel.c           \
+          $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/Pipe.c               \
+          $(LUFA_PATH)/LUFA/Drivers/USB/HighLevel/USBInterrupt.c      \
+          $(LUFA_PATH)/LUFA/Drivers/USB/HighLevel/USBTask.c           \
+          $(LUFA_PATH)/LUFA/Drivers/USB/HighLevel/Events.c            \
+          $(LUFA_PATH)/LUFA/Drivers/USB/HighLevel/ConfigDescriptor.c  \
+#          $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/Host.c               \
+#          $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/HostChapter9.c       \
+
 #	print.c \
 #	analog.c
 
@@ -111,7 +126,9 @@ DEBUG = dwarf-2
 #     Each directory must be seperated by a space.
 #     Use forward slashes for directory separators.
 #     For a directory that has spaces, enclose it in quotes.
-EXTRAINCDIRS = 
+EXTRAINCDIRS = LUFA/
+
+CDEFS += -DF_CLOCK=16000000 -DUSB_DEVICE_ONLY -DUSE_STATIC_OPTIONS -DFIXED_CONTROL_ENDPOINT_SIZE=8 -DFIXED_NUM_CONFIGURATIONS=1
 
 
 # Compiler flag to set the C Standard level.
@@ -123,7 +140,7 @@ CSTANDARD = -std=gnu99
 
 
 # Place -D or -U options here for C sources
-CDEFS = -DF_CPU=$(F_CPU)UL
+CDEFS += -DF_CPU=$(F_CPU)UL
 
 
 # Place -D or -U options here for ASM sources
