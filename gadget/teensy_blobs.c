@@ -30,7 +30,7 @@ uint8_t teensy_read(uint64_t index, uint16_t * data)
     return EINVALIDINDEX;
 //  memcpy_P( (void*)data, (PGM_VOID_P) blobs[index].data, 2);
   // , sizeof(blob_t.data));
-  memcpy( (void*) data, (void*) blobs[index].data, 2);
+  memcpy( (void*) data, (void*) &blobs[index].data, 2);
   return ENOERR;
   }
 
