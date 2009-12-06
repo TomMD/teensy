@@ -73,7 +73,7 @@ void StoreTask(state_t *state)
 	if (Endpoint_IsOUTReceived() && Endpoint_IsReadWriteAllowed()) {
 		if (CMD_STORE == state->command) {
 			err = Endpoint_Read_Stream_LE(&data, sizeof(uint16_t));
-//			teensy_store(state->index, data);
+			// teensy_store(state->index, data);			FIXME
 		} else {
 			Endpoint_ClearOUT();
 		}
@@ -83,7 +83,7 @@ void StoreTask(state_t *state)
 	Endpoint_SelectEndpoint(BULK_IN_EPNUM);
 	if (Endpoint_IsINReady() && Endpoint_IsReadWriteAllowed()) {
 		if(CMD_READ == state->command) {
-//			teensy_read(state->index, &data);
+			// teensy_read(state->index, &data);			FIXME
 			err = Endpoint_Write_Stream_LE(&data, sizeof(uint16_t));
 		} else {
 			Endpoint_ClearIN();
@@ -93,6 +93,7 @@ void StoreTask(state_t *state)
 	Endpoint_SelectEndpoint(CTRL_IN_EPNUM);
 	if (Endpoint_IsINReady() && Endpoint_IsReadWriteAllowed()) {
 		gadget_err_t e;
+		e.err = state->err;
 		err = Endpoint_Write_Stream_LE(&e, sizeof(gadget_err_t));
 	}
 
