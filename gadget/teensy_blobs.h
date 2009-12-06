@@ -17,7 +17,7 @@ struct blob
 
 typedef struct blob blob_t;
 
-uint8_t teensy_store(uint64_t, uint16_t);
-uint8_t teensy_read(uint64_t, uint16_t *);
-uint8_t teensy_delete(uint64_t);
+uint8_t teensy_store(uint64_t index, uint16_t data);
+uint8_t teensy_read(uint64_t index, uint16_t *data);
+uint8_t teensy_delete(uint64_t index);
 

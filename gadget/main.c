@@ -1,6 +1,8 @@
 #include <string.h>
 #include <avr/io.h>
 #include <avr/pgmspace.h>
+#include <avr/wdt.h>
+#include <avr/power.h>
 #include <util/delay.h>
 #include <stdint.h>
 
@@ -10,41 +12,117 @@
 // #include <LUFA/Drivers/USB/LowLevel/LowLevel.h>
 // #include <LUFA/Drivers/USB/HighLevel/ConfigDescriptor.h>
 // #include <LUFA/Drivers/USB/HighLevel/StdDescriptors.h>
+#include <LUFA/Drivers/USB/HighLevel/StdRequestType.h>
 
+#include "teensy_blobs.h"
+#include "teensy_display.h"
 #include "desc.h"
+#include "../commands.h"
 
-/*
-int read_cmd()
-{
-	Endpoint_SelectEndpoint(CTRL_OUT_EPNUM);
-	Endpoint_Read_Stream_LE
-	return 0;
-}
+struct state {
+	int index;
+	int offset;
+	int command;
+	uint8_t err;
+};
 
-void EVENT_USB_Device_ConfigurationChanged(void)
-{
-	Endpoint_ConfigureEndpoint(CTRL_OUT_EPNUM, EP_TYPE_CONTROL, ENDPOINT_DIR_OUT, CTRL_EPSIZE, ENDPOINT_BANK_DOUBLE);
-	Endpoint_ConfigureEndpoint(CTRL_IN_EPNUM,  EP_TYPE_CONTROL, ENDPOINT_DIR_IN,  CTRL_EPSIZE, ENDPOINT_BANK_DOUBLE);
-	Endpoint_ConfigureEndpoint(BULK_OUT_EPNUM, EP_TYPE_BULK,    ENDPOINT_DIR_OUT, BULK_EPSIZE, ENDPOINT_BANK_DOUBLE);
-	Endpoint_ConfigureEndpoint(BULK_IN_EPNUM,  EP_TYPE_BULK,    ENDPOINT_DIR_IN,  BULK_EPSIZE, ENDPOINT_BANK_DOUBLE);
-}
+typedef struct state state_t;
 
-void handle_cmd(int cmd)
-{
-}
-*/
+void StoreTask(state_t *state);
+void Init(void);
+
 int main(void)
 {
-	int cmd;
+	state_t state;
 
-	USB_Init();
-/*
-	while(cmd = read_cmd()) {
-		handle_cmd(cmd);
-	}
-*/
+	state.index = 0;
+	state.offset = 0;
+	state.command = CMD_NULL;
+	state.err = ENOERR;
+
+	Init();
+
 	while(1) {
-		USB_USBTask();
+		StoreTask(&state);
 	}
 	return 0;
 }
+
+void Init(void)
+{
+        MCUSR &= ~(1 << WDRF);
+        wdt_disable();
+
+	clock_prescale_set(clock_div_1);
+
+	USB_Init();
+//	Display_Init();
+}
+
+/*
+void StoreTask(state_t *state)
+{
+	uint8_t err;
+	uint16_t data;
+
+	if (USB_DeviceState != DEVICE_STATE_Configured)
+		return;
+
+	Endpoint_SelectEndpoint(BULK_OUT_EPNUM);
+	if (Endpoint_IsOUTReceived() && Endpoint_IsReadWriteAllowed()) {
+		if (CMD_STORE == state->command) {
+			err = Endpoint_Read_Stream_LE(&data, sizeof(uint16_t));
+//			teensy_store(state->index, data);
+		} else {
+			Endpoint_ClearOUT();
+		}
+
+	}
+
+	Endpoint_SelectEndpoint(BULK_IN_EPNUM);
+	if (Endpoint_IsINReady() && Endpoint_IsReadWriteAllowed()) {
+		if(CMD_READ == state->command) {
+//			teensy_read(state->index, &data);
+			err = Endpoint_Write_Stream_LE(&data, sizeof(uint16_t));
+		} else {
+			Endpoint_ClearIN();
+		}
+	}
+
+	Endpoint_SelectEndpoint(CTRL_IN_EPNUM);
+	if (Endpoint_IsINReady() && Endpoint_IsReadWriteAllowed()) {
+		gadget_err_t e;
+		err = Endpoint_Write_Stream_LE(&e, sizeof(gadget_err_t));
+	}
+
+	Endpoint_SelectEndpoint(CTRL_OUT_EPNUM);
+	if (Endpoint_IsOUTReceived() && Endpoint_IsReadWriteAllowed()) {
+		usb_cmd_t cmd;
+		err = Endpoint_Read_Stream_LE(&cmd, sizeof(usb_cmd_t));
+		state->command = cmd.cmd_type;
+		state->index   = cmd.index;
+	}
+}
+*/
+
+void StoreTask(state_t *state)
+{
+	uint8_t err;
+
+	if (USB_DeviceState != DEVICE_STATE_Configured)
+		return;
+
+	Endpoint_SelectEndpoint(BULK_OUT_EPNUM);
+	if (Endpoint_IsOUTReceived() && Endpoint_IsReadWriteAllowed()) {
+		if(1) { // (CMD_STORE == state->command) {
+			// err = Endpoint_Read_Stream_LE(&data, sizeof(uint16_t));
+			uint8_t buf[BULK_EPSIZE];
+			err = Endpoint_Read_Stream_LE(&buf, BULK_EPSIZE);
+//			teensy_store(state->index, data);
+		} else {
+			Endpoint_ClearOUT();
+		}
+
+	}
+}
+

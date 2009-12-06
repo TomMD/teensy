@@ -34,7 +34,7 @@ USB_Descriptor_Device_t PROGMEM DeviceDescriptor =
         .ProductStrIndex        = 0x02,
         .SerialNumStrIndex      = USE_INTERNAL_SERIAL,
 
-        .NumberOfConfigurations = FIXED_NUM_CONFIGURATIONS
+        .NumberOfConfigurations = 1
 };
 
 USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
@@ -46,7 +46,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
                         .TotalConfigurationSize = sizeof(USB_Descriptor_Configuration_t),
                         .TotalInterfaces        = 1,
 
-                        .ConfigurationNumber    = 1,
+                        .ConfigurationNumber    = 1,		// FIXME fairly sure 0 isn't valid, but 1 doesn't work!
                         .ConfigurationStrIndex  = NO_DESCRIPTOR,
 
                         .ConfigAttributes       = USB_CONFIG_ATTR_BUSPOWERED,
@@ -74,7 +74,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 			.Header			= {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
 			.EndpointAddress	= (ENDPOINT_DESCRIPTOR_DIR_IN | CTRL_IN_EPNUM),
 			.Attributes		= (EP_TYPE_CONTROL | ENDPOINT_ATTR_NO_SYNC),
-			.EndpointSize		= CTRL_EPSIZE,
+			.EndpointSize		= CTRL_IN_EPSIZE,
 			.PollingIntervalMS	= 0x00
 		},
 
@@ -82,7 +82,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 			.Header			= {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
 			.EndpointAddress	= (ENDPOINT_DESCRIPTOR_DIR_OUT | CTRL_OUT_EPNUM),
 			.Attributes		= (EP_TYPE_CONTROL | ENDPOINT_ATTR_NO_SYNC),
-			.EndpointSize		= CTRL_EPSIZE,
+			.EndpointSize		= CTRL_OUT_EPSIZE,
 			.PollingIntervalMS	= 0x00
 		},
 
@@ -131,8 +131,7 @@ USB_Descriptor_String_t PROGMEM ProductString =
 uint16_t CALLBACK_USB_GetDescriptor
 	(const uint16_t	wValue,
 	 const uint8_t	wIndex,
-	 void **const	DescriptorAddress,
-	 uint8_t *	MemoryAddressSpace)
+	 void **const	DescriptorAddress)
 {
         const uint8_t  DescriptorType   = (wValue >> 8);
         const uint8_t  DescriptorNumber = (wValue & 0xFF);
