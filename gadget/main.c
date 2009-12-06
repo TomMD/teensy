@@ -14,8 +14,8 @@
 // #include <LUFA/Drivers/USB/HighLevel/StdDescriptors.h>
 #include <LUFA/Drivers/USB/HighLevel/StdRequestType.h>
 
-#include "teensy_blobs.h"
 #include "teensy_display.h"
+#include "teensy_blobs.h"
 #include "desc.h"
 #include "../commands.h"
 
@@ -56,10 +56,11 @@ void Init(void)
 	clock_prescale_set(clock_div_1);
 
 	USB_Init();
-//	Display_Init();
+	Display_Init();
 }
 
-/*
+#if 1  // Change to zero for shorter StoreTask used for testing
+
 void StoreTask(state_t *state)
 {
 	uint8_t err;
@@ -103,7 +104,8 @@ void StoreTask(state_t *state)
 		state->index   = cmd.index;
 	}
 }
-*/
+
+#else
 
 void StoreTask(state_t *state)
 {
@@ -125,4 +127,4 @@ void StoreTask(state_t *state)
 
 	}
 }
-
+#endif

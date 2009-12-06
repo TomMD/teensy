@@ -8,6 +8,6 @@
 extern unsigned short hex_val(const char);
 extern void digitalWrite(uint8_t, uint8_t);
 extern void out_hex(unsigned short, unsigned short);
-extern void Display_Init();
+extern void Display_Init(void);
 
 #endif
