@@ -50,9 +50,10 @@ TARGET = main
 LUFA_PATH = LUFA
 
 # List C source files here. (C dependencies are automatically generated.)
-SRC =	$(TARGET).c \
-	   teensy_blobs.c \
-	    desc.c						\
+SRC =	$(TARGET).c		\
+	  teensy_blobs.c	\
+	  teensy_display.c	\
+	  desc.c		\
           $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/DevChapter9.c        \
           $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/Endpoint.c           \
           $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/LowLevel.c           \
@@ -128,8 +129,9 @@ DEBUG = dwarf-2
 #     For a directory that has spaces, enclose it in quotes.
 EXTRAINCDIRS = LUFA/
 
-CDEFS += -DF_CLOCK=16000000 -DUSB_DEVICE_ONLY -DUSE_STATIC_OPTIONS -DFIXED_CONTROL_ENDPOINT_SIZE=8 -DFIXED_NUM_CONFIGURATIONS=1
-
+CDEFS += -DF_CLOCK=16000000 -DUSB_DEVICE_ONLY -DFIXED_CONTROL_ENDPOINT_SIZE=8 -DNO_STREAM_CALLBACKS
+CDEFS += -DINTERRUPT_CONTROL_ENDPOINT -D USE_FLASH_DESCRIPTORS  
+CDEFS += -D USE_STATIC_OPTIONS="(USB_DEVICE_OPT_FULLSPEED | USB_OPT_REG_ENABLED | USB_OPT_AUTO_PLL)"
 
 # Compiler flag to set the C Standard level.
 #     c89   = "ANSI" C
@@ -179,6 +181,7 @@ CFLAGS += -Wstrict-prototypes
 CFLAGS += -Wa,-adhlns=$(<:%.c=$(OBJDIR)/%.lst)
 CFLAGS += $(patsubst %,-I%,$(EXTRAINCDIRS))
 CFLAGS += $(CSTANDARD)
+CFLAGS += -Werror
 
 
 #---------------- Compiler Options C++ ----------------
