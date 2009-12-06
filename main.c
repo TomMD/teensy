@@ -225,14 +225,14 @@ int teensy_probe(struct usb_interface *intf, const struct usb_device_id *id) {
 
     /* setup read_endpoint if this is the bulk in endpoint */
     if (!dev->read_endpoint &&                       /* we haven't set EP yet */
-        usb_endpoint_is_int_in(curr_endpoint)) {    /* type is BULK IN */
+        usb_endpoint_is_bulk_in(curr_endpoint)) {    /* type is BULK IN */
       dev->read_endpoint = curr_endpoint->bEndpointAddress;
       dev->read_size     = curr_endpoint->wMaxPacketSize;
     }
 
     /* setup write_endpoint if this is the bulk in endpoint */
     else if (!dev->write_endpoint &&                      /* we haven't set EP yet */
-        usb_endpoint_is_int_out(curr_endpoint)) {   /* type is BULK OUT */
+        usb_endpoint_is_bulk_out(curr_endpoint)) {   /* type is BULK OUT */
       dev->write_endpoint = curr_endpoint->bEndpointAddress;
     }
 
