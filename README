@@ -1,12 +1,60 @@
+------------------------------------------------------------------------------
+CS 572 Assignment 2
+teensy-usb driver
 
-Table Of Contents
+Author: Rebekah Leslie
+Group:  Thomas DuBuisson and John Ochsner
 
-1.0 USB to Host Interface
-2.0 Host (Kernel) to User interface
-3.0 Statistics to collect
+------------------------------------------------------------------------------
+Overview:
 
+Our driver provides the initial steps towards a secure USB storage device for Linux.
+We use the available dynamic memory on the Teensy device to store data objects
+supplied by a user-level process.  In principle the data objects could be any size,
+so long as they fit on the device. These data objects are keyed to a user-supplied
+index.  The gadget-side driver displays the index at storage time to demonstrate that
+the device is operating properly.  Our ultimate goal is for the gadget-side driver to
+perform a private transformation to the data at storage time to protect the data
+stored on the device.
 
-1.0 USB TO HOST INTERFACE
+The teensy device currently supports read, write, and delete operations that operate
+on the data-object at a particular index in the store.  We envision adding support
+for more operations, such as clearing the entire memory or querying the device for
+statistics.  
+
+Given the time permitted for the assignment, we were not able to achieve all of our
+initial goals for the project.  The device only handles fixed-size 16-bit data
+objects and does not perform any transformation to the data prior to storage.
+However, we were able to complete a framework for accessing the teensy device that we
+think is robust enough to accomodate the components of the original plan.
+
+------------------------------------------------------------------------------
+Testing the device:
+
+The test script for the device will build and load the driver, build and run all of
+the tests, then unload the driver before returning.  Test failures print an error
+message, while driver errors (failure to build or load/unload) terminate the script.
+The script must be run with root privilege.
+
+In this directory, as root, simply type "./runteensy" to execute the script.
+
+For more information about the specific tests performed, please see the test
+README located in 'tests/README'.
+
+The test scripts are written by Rebekah Leslie.  Thomas DuBuisson performed most of
+the debugging of the driver during development. 
+
+------------------------------------------------------------------------------
+Design of the Gadget/Host Interface
+Author: Entire Team
+
+The host- and gadget- side of the driver communicate over a set of four endpoints.
+From the host's perspective, there is a control-out endpoint for sending
+instructions to the gadget, a control-in endpoint for receiving error messages from
+the gadget, a bulk-out endpoint for writing data-objects, and a bulk-in endpoint for
+reading data-objects.  The write command is embedded in the data object when the host
+sends it to the device, while read and delete must be sent on the control-out
+channel.
 
 	GADGET					HOST
 		|				|
@@ -25,44 +73,49 @@ Table Of Contents
 		|				|
 		|				|
 
-2.0  Kernel / Userspace interface
+------------------------------------------------------------------------------
+Host-side configuration of the device:
+Author: Rebekah Leslie
+File:   main.c (and ./Makefile)
 
-2.1 /dev/teensy
+The host-side configuration provides all of the setup necessary for managing the
+teensy device and interfacing with USB core.  The probe method performs most of the
+work---we don't want to initialize all of our structures until there is some hope of
+the device being used.  We require that the configuration presented by the USB device
+precicely match the expected configuration (the four previously discussed endpoints);
+loading the device will fail otherwise.
 
-As with the sstore driver, /dev/teensy is read and written by calling
-posix read() or write() with a pointer to a structure (struct command).
+In addition to the configuration performed by the driver once loaded, Rebekah
+researched the mechanics of hotplugging.  Running "make install" as root should
+configure the host system to auto-load the correct driver when the Teensy board is
+plugged in.  There were some issues with this during testing due to conflict with
+another driver---in this case the driver has to be manually loaded using insmod or
+modprobe.
 
-User space programs should be in the form:
+------------------------------------------------------------------------------
+Communicating between the gadget and host
+Author: Thomas DuBuisson
 
-	#include "command.h"
+The read, write, and delete (implemented as an ioctl system call) operations provide
+the user interface to the device.  The host-side driver performs some basic
+validation of the request submitted by the user, then issues the appropriate message
+to the gadget-side driver.  The gadget-side driver waits for requests to come in and
+modifies the store as appropriate (using the gadget-side storage library, see below).
 
-	size_t func(uint16_t data)
-	{
-		int fd;
-		struct command cmd;
-		cmd.cmd_type = CMD_STORE;
-		cmd.index = 1;	// Like a file name
-		cmd.data = data;
-		fd = open("/dev/teensy", O_RDWR);
-		return write(fd, &cmd, sizeof(struct command));
-	}
-	
+In addition to responding to storage requests, the gadget-side driver must handle
+requests from USB core to identify and describe the the device.  This includes
+specifying the configurations that are supported by the device.
 
-2.2 /proc/teensy-stats
+------------------------------------------------------------------------------
+Gadget-side storage and display
+Author: John Ochsner
 
-The proc entry is for read-only use by any (even non-root) user.
+We represent the storage of the device as an array of data-objects (currently of a
+fixed size).  The storage library provides an abstraction over this array and
+performs argument validation (making sure that the specified index is within bounds).
 
-	$ cat /proc/teensy-stats
-		# reads: 10
-		# writes: 0
-		# bytes read: 20
-		# bytes written: 0
+When the gadget-side driver receives a request to access a particular index, the
+driver displays the specified index on a 4 character hexidecimal display connected to
+the device.  This allows us to demonstrate a connection between a user request and
+the actual operation of the device.
 
-3.0 STATISTICS
-
-	Number of reads
-	Bytes read
-	Number of writes
-	Bytes written
-	Number of stores
-	Number of bytes stored

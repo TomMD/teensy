@@ -1,0 +1,20 @@
+#!/bin/bash
+
+make || exit
+make -C tests || exit
+./insmod ./usb-teensy.ko || exit
+cd tests
+./test1  || echo "test 1 failed"
+./test2  || echo "test 2 failed"
+./test3  || echo "test 3 failed"
+./test4  || echo "test 4 failed"
+./test5  || echo "test 5 failed"
+./test6  || echo "test 6 failed"
+./test7  || echo "test 7 failed"
+./test8  || echo "test 8 failed"
+./test9  || echo "test 9 failed"
+./test10 || echo "test 10 failed"
+./test11 || echo "test 11 failed"
+
+./rmmod usb-teensy || exit
+echo "Tests completed."

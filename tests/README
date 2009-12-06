@@ -1,0 +1,34 @@
+# Test-plan
+#
+# Author: Rebekah Leslie
+# Group: Thomas DuBuisson and John Ochsner
+# Tests 1--11 written by Rebekah Leslie.
+
+All tests are run on the first instance of the teensy device.
+
+1--5. Write before read.
+
+Test the ability to write an element into the device and read back the same
+result.  The tests evaluate the driver's ability to write then read in an
+empty list (test 1), a singleton list (test 2), and a multi-item list where 
+the index is at the end of the list (test3), the middle of the list (test4),
+or the head of the list (test5).  Each test is successful if the value read
+from the device equals the value written (data taken from files in the data
+directory).
+
+6--10. Deletion of a node.
+
+Test node deletion using ioctl.  The tests evaluate the driver's ability to
+delete an item from an empty list (test 10), a singleton list (test 11), and a
+multi-item list where the deleted item is at the end of the list (test 12),
+the middle of the list (test 13), or the head of the list (test 14).  The test
+on an empty list simply checks that the operation succeeded.  Each other 
+test is successful if a non-blocking read can no longer access a previously
+written node after a call to delete.
+
+11. Overwriting a node.
+
+Test the behavior of the device when two different blobs are written to the
+same index.  Write twice to the same index, and perform a read.  The test
+succeeds if the second blob written is returned. 
+

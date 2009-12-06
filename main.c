@@ -224,27 +224,27 @@ int teensy_probe(struct usb_interface *intf, const struct usb_device_id *id) {
     curr_endpoint = &host->endpoint[i].desc;
 
     /* setup read_endpoint if this is the bulk in endpoint */
-    if (!dev->read_endpoint &&                       /* we haven't set EP yet */
+    if (!dev->read_endpoint &&                       /* haven't set EP yet */
         usb_endpoint_is_bulk_in(curr_endpoint)) {    /* type is BULK IN */
       dev->read_endpoint = curr_endpoint->bEndpointAddress;
       dev->read_size     = curr_endpoint->wMaxPacketSize;
     }
 
     /* setup write_endpoint if this is the bulk in endpoint */
-    else if (!dev->write_endpoint &&                      /* we haven't set EP yet */
+    else if (!dev->write_endpoint &&                 /* haven't set EP yet */
         usb_endpoint_is_bulk_out(curr_endpoint)) {   /* type is BULK OUT */
       dev->write_endpoint = curr_endpoint->bEndpointAddress;
     }
 
     /* setup del_endpoint if this is the control out endpoint */
-    else if (!dev->del_endpoint &&                        /* we haven't set EP yet */
+    else if (!dev->del_endpoint &&                   /* haven't set EP yet */
         usb_endpoint_dir_out(curr_endpoint) &&       /* direction is OUT */
         usb_endpoint_xfer_control(curr_endpoint)) {  /* type is CONTROL */
       dev->del_endpoint = curr_endpoint->bEndpointAddress;
     }
 
     /* setup err_endpoint if this is the control in endpoint */
-    else if (!dev->err_endpoint &&                       /* we haven't set EP yet */
+    else if (!dev->err_endpoint &&                  /* haven't set EP yet */
         usb_endpoint_dir_in(curr_endpoint) &&       /* direction is IN */
         usb_endpoint_xfer_control(curr_endpoint)) { /* type is CONTROL */
       dev->err_endpoint = curr_endpoint->bEndpointAddress;
@@ -306,10 +306,3 @@ void teensy_disconnect(struct usb_interface *intf) {
   /* free the device-local storage data */
   kfree(dev);
 }
-
-/*-------------------------------------------------------------------------*/
-/*-------------------------------------------------------------------------*/
-/* Proc Interface                                                          */
-/*-------------------------------------------------------------------------*/
-/*-------------------------------------------------------------------------*/
-

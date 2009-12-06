@@ -6,6 +6,8 @@
 #ifndef COMMANDS_H
 #define COMMANDS_H
 
+#include <stdint.h>
+
 // Commands that travel over the COMMAND usb channel
 #define CMD_STORE	0x00
 #define CMD_READ	0x03
@@ -38,6 +40,7 @@ struct command {
 
 typedef struct command command_t;
 
+#define MAXDATASIZE sizeof(uint16_t)
 
 // Responses that travel over the Error usb line
 #define ENOERR 0
