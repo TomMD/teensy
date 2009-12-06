@@ -3,11 +3,30 @@
 // Defines commands for teensy/PC interaction
 // also abused to hold the IOCTL numbers
 
-// Commands that travel over the COMMAND usb channel
-#define CMD_STORE 0x00
-#define CMD_READ  0x03
-#define CMD_DELETE 0x06
+#ifndef COMMANDS_H
+#define COMMANDS_H
 
+// Commands that travel over the COMMAND usb channel
+#define CMD_STORE	0x00
+#define CMD_READ	0x03
+#define CMD_DELETE	0x06
+#define CMD_NULL	0xFF
+
+// This is the KERNEL/USB Driver to GADGET command buffer structure
+struct usb_cmd {
+	uint8_t cmd_type;
+	uint64_t index;
+} __attribute__((__packed__));
+
+typedef struct usb_cmd usb_cmd_t;
+
+struct gadget_err {
+	uint8_t err;
+} __attribute__((__packed__));
+
+typedef struct gadget_err gadget_err_t;
+
+// This is the USER SPACE to KERNEL command structures
 struct command {
 	uint8_t cmd_type;
 	uint64_t index;
@@ -35,3 +54,6 @@ struct response {
 #define TEENSY_IOC_MAXNR 2
 #define TEENSY_IOCFLUSH 0
 #define TEENSY_IOCERASE_IDX 1
+
+
+#endif
