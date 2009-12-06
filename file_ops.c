@@ -25,6 +25,7 @@ ssize_t teensy_read(struct file *filp, char __user *buf, size_t count,
 {
 	int actualLen=0;
 	struct command cmd;
+	usb_cmd_t usb_cmd;
 	struct teensy_dev *teensy;
 	int err=0;
 
@@ -49,9 +50,11 @@ ssize_t teensy_read(struct file *filp, char __user *buf, size_t count,
 	}
 
 	// FIXME issue usb_read(cmd)
+	usb_cmd.cmd_type = CMD_READ;
+	usb_cmd.index = cmd.index;
 	err = usb_control_msg(teensy->device, usb_sndctrlpipe(teensy->device, teensy->del_endpoint),
 				/*req*/ CMD_READ, /*reqType*/ 0, /*val*/ 0, /*idx*/ cmd.index,
-				(void *)&cmd, sizeof(struct command), HZ*10);
+				(void *)&usb_cmd, sizeof(usb_cmd_t), HZ*10);
 	if (err) {
 		printk(KERN_WARNING "teensy-usb: read:"
 			" Error on control msg: %d\n", err);
@@ -84,6 +87,7 @@ ssize_t teensy_write(struct file *filp, const char __user *buf, size_t count,
 {
 	struct teensy_dev *teensy;
 	struct command cmd;
+	usb_cmd_t usb_cmd;
 	int err=0, actualLen=0;
 
 	teensy = filp->private_data;
@@ -106,9 +110,11 @@ ssize_t teensy_write(struct file *filp, const char __user *buf, size_t count,
 		goto teensy_write_out;
 	}
 
+	usb_cmd.cmd_type = CMD_STORE;
+	usb_cmd.index = cmd.index;
 	err = usb_control_msg(teensy->device, usb_sndctrlpipe(teensy->device, teensy->del_endpoint),
 				/*req*/ CMD_STORE, /*reqType*/ 0, /*val*/ 0, /*idx*/ cmd.index,
-				(void *)&cmd, sizeof(struct command), HZ*10);
+				(void *)&usb_cmd, sizeof(usb_cmd_t), HZ*10);
 	if (err) {
 		printk(KERN_WARNING "teensy-usb: write:"
 			" Error on control msg: %d\n", err);
