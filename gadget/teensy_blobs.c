@@ -3,7 +3,6 @@
 // Group  : Rebekah Leslie & Thomas DuBuisson
 
 #include "teensy_blobs.h"
-#include "teensy_display.h"
 #include "../commands.h"
 #include <string.h>
 

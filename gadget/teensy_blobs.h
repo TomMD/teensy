@@ -7,12 +7,12 @@
 
 #include <avr/pgmspace.h>
 
-#define MAX_BLOBS 1024
+#define MAX_BLOBS 256
 
 struct blob
-  {
-	prog_uint16_t data;
-  };
+{
+	uint16_t data;
+};
 
 typedef struct blob blob_t;
 
