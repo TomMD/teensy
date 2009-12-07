@@ -6,11 +6,9 @@
 #include <util/delay.h>
 #include <stdint.h>
 
-#include <LUFA/Drivers/USB/LowLevel/Endpoint.h>
+//#include <LUFA/Drivers/USB/LowLevel/Endpoint.h>
 #include <LUFA/Drivers/USB/USB.h>
-// #include <LUFA/Drivers/USB/HighLevel/ConfigDescriptor.h>
-// #include <LUFA/Drivers/USB/HighLevel/StdDescriptors.h>
-#include <LUFA/Drivers/USB/HighLevel/StdRequestType.h>
+//#include <LUFA/Drivers/USB/HighLevel/StdRequestType.h>
 
 #include "teensy_blobs.h"
 #include "teensy_display.h"
@@ -40,6 +38,8 @@ void Init(void);
 void EVENT_USB_Device_ConfigurationChanged(void)
 {
 	int i,succ=1;
+
+#ifdef CTRL
 	succ &= Endpoint_ConfigureEndpoint(CTRL_IN_EPNUM, EP_TYPE_CONTROL,
 					ENDPOINT_DIR_IN, CTRL_IN_EPSIZE,
 					ENDPOINT_BANK_SINGLE);
@@ -47,6 +47,7 @@ void EVENT_USB_Device_ConfigurationChanged(void)
 	succ &= Endpoint_ConfigureEndpoint(CTRL_OUT_EPNUM, EP_TYPE_CONTROL,
 					ENDPOINT_DIR_OUT, CTRL_OUT_EPSIZE,
 					ENDPOINT_BANK_SINGLE);
+#endif
 
 	succ &= Endpoint_ConfigureEndpoint(BULK_IN_EPNUM, EP_TYPE_BULK,
 					ENDPOINT_DIR_IN, BULK_EPSIZE,
@@ -112,12 +113,12 @@ void Init(void)
 
 void StoreTask(state_t *state)
 {
-#ifdef CTRL_IN
+#ifdef CTRL
 	gadget_err_t e;
-#endif
 	usb_cmd_t cmd;
+#endif
 	uint8_t err;
-	uint16_t data;
+	static uint16_t data=0;
 
 	if (USB_DeviceState != DEVICE_STATE_Configured)
 		return;
@@ -126,7 +127,7 @@ void StoreTask(state_t *state)
 	if (Endpoint_IsConfigured() && Endpoint_IsOUTReceived() && Endpoint_IsReadWriteAllowed()) {
 		if (CMD_STORE == state->command) {
 			err = Endpoint_Read_Stream_LE(&data, sizeof(uint16_t));
-			teensy_store(state->index, data);		//	FIXME
+			// teensy_store(state->index, data);		//	FIXME
 			LED_OFF;
 		} else {
 			Endpoint_ClearOUT();
@@ -136,7 +137,7 @@ void StoreTask(state_t *state)
 	Endpoint_SelectEndpoint(BULK_IN_EPNUM);
 	if (Endpoint_IsConfigured() && Endpoint_IsINReady() && Endpoint_IsReadWriteAllowed()) {
 		if(CMD_READ == state->command) {
-			teensy_read(state->index, &data);		//	FIXME
+			// teensy_read(state->index, &data);		//	FIXME
 			err = Endpoint_Write_Stream_LE(&data, sizeof(uint16_t));
 			LED_OFF;
 		} else {
@@ -144,13 +145,12 @@ void StoreTask(state_t *state)
 		}
 	}
 
-#ifdef CTRL_IN
+#ifdef CTRL
 	Endpoint_SelectEndpoint(CTRL_IN_EPNUM);
 	if (Endpoint_IsConfigured() && Endpoint_IsINReady() && Endpoint_IsReadWriteAllowed()) {
 		e.err = state->err;
 		err = Endpoint_Write_Stream_LE(&e, sizeof(gadget_err_t));
 	}
-#endif
 
 	Endpoint_SelectEndpoint(CTRL_OUT_EPNUM);
 	if (Endpoint_IsConfigured() && Endpoint_IsOUTReceived() && Endpoint_IsReadWriteAllowed()) {
@@ -159,4 +159,5 @@ void StoreTask(state_t *state)
 		state->command = cmd.cmd_type;
 		state->index   = cmd.index;
 	}
+#endif
 }

@@ -34,7 +34,7 @@ USB_Descriptor_Device_t PROGMEM DeviceDescriptor =
         .ProductStrIndex        = 0x02,
         .SerialNumStrIndex      = USE_INTERNAL_SERIAL,
 
-        .NumberOfConfigurations = 1
+        .NumberOfConfigurations = FIXED_NUM_CONFIGURATIONS
 };
 
 USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
@@ -46,7 +46,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
                         .TotalConfigurationSize = sizeof(USB_Descriptor_Configuration_t),
                         .TotalInterfaces        = 1,
 
-                        .ConfigurationNumber    = 1,		// FIXME fairly sure 0 isn't valid, but 1 doesn't work!
+                        .ConfigurationNumber    = 1,
                         .ConfigurationStrIndex  = NO_DESCRIPTOR,
 
                         .ConfigAttributes       = USB_CONFIG_ATTR_BUSPOWERED,
@@ -60,8 +60,11 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 
                         .InterfaceNumber        = 0,
                         .AlternateSetting       = 0,
-
+#ifdef CTRL
                         .TotalEndpoints         = 4,
+#else
+			.TotalEndpoints		= 2,
+#endif
 
                         .Class                  = 0xff,
                         .SubClass               = 0xaa,
@@ -70,6 +73,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
                         .InterfaceStrIndex      = NO_DESCRIPTOR
                 },
 
+#ifdef CTRL
 	.ControlInEndpoint = {
 			.Header			= {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
 			.EndpointAddress	= (ENDPOINT_DESCRIPTOR_DIR_IN | CTRL_IN_EPNUM),
@@ -85,6 +89,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 			.EndpointSize		= CTRL_OUT_EPSIZE,
 			.PollingIntervalMS	= 0x00
 		},
+#endif
 
         .DataInEndpoint =
                 {
