@@ -17,10 +17,10 @@ the device is operating properly.  Our ultimate goal is for the gadget-side driv
 perform a private transformation to the data at storage time to protect the data
 stored on the device.
 
-The teensy device currently supports read, write, and delete operations that operate
-on the data-object at a particular index in the store.  We envision adding support
-for more operations, such as clearing the entire memory or querying the device for
-statistics.  
+The teensy device currently supports read and write operations that operate on the
+data-object at a particular index in the store.  We envision adding support for more
+operations, such as deleting a data object, clearing the entire memory, or querying
+the device for statistics.  
 
 Given the time permitted for the assignment, we were not able to achieve all of our
 initial goals for the project.  The device only handles fixed-size 16-bit data
@@ -48,30 +48,33 @@ the debugging of the driver during development.
 Design of the Gadget/Host Interface
 Author: Entire Team
 
-The host- and gadget- side of the driver communicate over a set of four endpoints.
-From the host's perspective, there is a control-out endpoint for sending
-instructions to the gadget, a control-in endpoint for receiving error messages from
-the gadget, a bulk-out endpoint for writing data-objects, and a bulk-in endpoint for
-reading data-objects.  The write command is embedded in the data object when the host
-sends it to the device, while read and delete must be sent on the control-out
-channel.
+The host- and gadget- side of the driver communicate over a set of three endpoints.
+From the host's perspective, there is a bulk-out endpoint for sending control
+information to the gadget, a bulk-out endpoint for writing data-objects, and a
+bulk-in endpoint for reading data-objects.  When the user requests a particular
+operation, the host-side driver issues an instruction (currently read or write) over
+the command endpoint the issues a data request over the appropriate data endpoint
+(input or output).
 
 	GADGET					HOST
 		|				|
 		|				|
-		|		Control		|
+                |      command :: BULK OUT      |
 		| <<----------------------------|
 		|				|
-		|   Error (a control channel)	|
-		|---------------------------->>	|
-		|				|
-		|	BULK OUT		|
+		|    data output :: BULK OUT	|
 		| <<----------------------------|
 		|				|
-		|	BULK IN			|
+		|     data input :: BULK IN	|
 		|---------------------------->>	|
 		|				|
 		|				|
+
+With only read and write operations, the command endpoint is not strictly necessary
+(the operations could be associated with the endpoints, so that a bulk-in request is
+treated as a read and a bulk-out request is treated as a write), however, our design
+allows for extension to the command set in the future.  We already have a placeholder
+ioctl implementation for deleting a data object and for clearing the store.
 
 ------------------------------------------------------------------------------
 Host-side configuration of the device:
@@ -96,15 +99,22 @@ modprobe.
 Communicating between the gadget and host
 Author: Thomas DuBuisson
 
-The read, write, and delete (implemented as an ioctl system call) operations provide
-the user interface to the device.  The host-side driver performs some basic
-validation of the request submitted by the user, then issues the appropriate message
-to the gadget-side driver.  The gadget-side driver waits for requests to come in and
-modifies the store as appropriate (using the gadget-side storage library, see below).
+The read and write operations provide the user interface to the device.  The
+host-side driver performs some basic validation of the request submitted by the user,
+then issues the appropriate message to the gadget-side driver.  The gadget-side
+driver waits for requests to come in and modifies the store as appropriate (using the
+gadget-side storage library, see below).
 
 In addition to responding to storage requests, the gadget-side driver must handle
 requests from USB core to identify and describe the the device.  This includes
-specifying the configurations that are supported by the device.
+specifying the configurations that are supported by the device.  We use the
+Lightweight USB Framework for AVRs (LUFA) library to handle the low-level management
+of the Teensy device.  Though this in principle allows us to focus more attention on
+the interesting control elements of the gadget-side driver, learning to use the LUFA
+library was a significant investment in and of itself.  Ultimately, we think this is
+the right choice for creating a robust and comprehensible driver in spite of the high
+learning curve (after all, the underlying USB protocol is even more difficult to
+master).
 
 ------------------------------------------------------------------------------
 Gadget-side storage and display
