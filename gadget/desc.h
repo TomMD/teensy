@@ -32,7 +32,9 @@ typedef struct {
 #define BULK_IN_EPNUM 5
 #define BULK_OUT_EPNUM 6
 
-#define BULK_EPSIZE sizeof(uint16_t)
+#define BULK_OUT_EPSIZE (sizeof(usb_cmd_t) + sizeof(uint16_t))
+#define BULK_IN_EPSIZE (sizeof(uint16_t))
+
 #define CTRL_OUT_EPSIZE sizeof(usb_cmd_t)
 #define CTRL_IN_EPSIZE sizeof(gadget_err_t)
 

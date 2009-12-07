@@ -97,7 +97,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 
                         .EndpointAddress        = (ENDPOINT_DESCRIPTOR_DIR_IN | BULK_IN_EPNUM),
                         .Attributes             = (EP_TYPE_BULK | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
-                        .EndpointSize           = BULK_EPSIZE,
+                        .EndpointSize           = BULK_IN_EPSIZE,
                         .PollingIntervalMS      = 0x00
                 },
 
@@ -107,7 +107,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 
                         .EndpointAddress        = (ENDPOINT_DESCRIPTOR_DIR_OUT | BULK_OUT_EPNUM),
                         .Attributes             = (EP_TYPE_BULK | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
-                        .EndpointSize           = BULK_EPSIZE,
+                        .EndpointSize           = BULK_OUT_EPSIZE,
                         .PollingIntervalMS      = 0x00
                 }
 

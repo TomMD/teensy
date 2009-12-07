@@ -50,11 +50,11 @@ void EVENT_USB_Device_ConfigurationChanged(void)
 #endif
 
 	succ &= Endpoint_ConfigureEndpoint(BULK_IN_EPNUM, EP_TYPE_BULK,
-					ENDPOINT_DIR_IN, BULK_EPSIZE,
+					ENDPOINT_DIR_IN, BULK_IN_EPSIZE,
 					ENDPOINT_BANK_SINGLE);
 
 	succ &= Endpoint_ConfigureEndpoint(BULK_OUT_EPNUM, EP_TYPE_BULK,
-					ENDPOINT_DIR_OUT, BULK_EPSIZE,
+					ENDPOINT_DIR_OUT, BULK_OUT_EPSIZE,
 					ENDPOINT_BANK_SINGLE);
 	LED_CONFIG;
 	while(!succ) {
@@ -115,8 +115,8 @@ void StoreTask(state_t *state)
 {
 #ifdef CTRL
 	gadget_err_t e;
-	usb_cmd_t cmd;
 #endif
+	usb_cmd_t cmd;
 	uint8_t err;
 	static uint16_t data=0;
 
@@ -125,19 +125,20 @@ void StoreTask(state_t *state)
 
 	Endpoint_SelectEndpoint(BULK_OUT_EPNUM);
 	if (Endpoint_IsConfigured() && Endpoint_IsOUTReceived() && Endpoint_IsReadWriteAllowed()) {
-		if (CMD_STORE == state->command) {
+		err = Endpoint_Read_Stream_LE(&cmd, sizeof(usb_cmd_t));
+		state->command = cmd.cmd_type;
+		state->index   = cmd.index;
+		if(cmd.cmd_type == CMD_STORE) {
 			err = Endpoint_Read_Stream_LE(&data, sizeof(uint16_t));
-			// teensy_store(state->index, data);		//	FIXME
+			teensy_store(cmd.index, data);		//	FIXME
 			LED_OFF;
-		} else {
-			Endpoint_ClearOUT();
 		}
 	}
 
 	Endpoint_SelectEndpoint(BULK_IN_EPNUM);
 	if (Endpoint_IsConfigured() && Endpoint_IsINReady() && Endpoint_IsReadWriteAllowed()) {
 		if(CMD_READ == state->command) {
-			// teensy_read(state->index, &data);		//	FIXME
+			teensy_read(state->index, &data);		//	FIXME
 			err = Endpoint_Write_Stream_LE(&data, sizeof(uint16_t));
 			LED_OFF;
 		} else {
