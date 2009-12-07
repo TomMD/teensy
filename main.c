@@ -234,9 +234,15 @@ int teensy_probe(struct usb_interface *intf, const struct usb_device_id *id) {
     else if (!dev->write_endpoint &&                 /* haven't set EP yet */
         usb_endpoint_is_bulk_out(curr_endpoint)) {   /* type is BULK OUT */
       dev->write_endpoint = curr_endpoint->bEndpointAddress;
+      dev->write_size = curr_endpoint->wMaxPacketSize;
     }
 
-    /* setup del_endpoint if this is the control out endpoint */
+    else if(!dev->cmd_endpoint &&
+	usb_endpoint_is_bulk_out(curr_endpoint)) {
+      dev->cmd_endpoint = curr_endpoint->bEndpointAddress;
+      dev->cmd_size = curr_endpoint->wMaxPacketSize;
+    }
+
     else {
       printk(KERN_WARNING "teensy_usb: unknown endpoint.\n");
       printk(KERN_WARNING "\tin?   %d", usb_endpoint_dir_in(curr_endpoint));
@@ -248,10 +254,10 @@ int teensy_probe(struct usb_interface *intf, const struct usb_device_id *id) {
     }
   }
 
-  if (!dev->read_endpoint || !dev->write_endpoint) {
+  if (!dev->read_endpoint || !dev->write_endpoint || !dev->cmd_endpoint) {
     printk(KERN_WARNING "usb-teensy: Bad endpoint (read, write, del, err):"
-		"%d %d %d %d\n", dev->read_endpoint, dev->write_endpoint,
-		dev->del_endpoint, dev->err_endpoint);
+		"%d %d %d\n", dev->read_endpoint, dev->write_endpoint,
+		dev->cmd_endpoint);
     result = -ENOSYS;
     goto fail_after_setup;
   }
@@ -261,7 +267,7 @@ int teensy_probe(struct usb_interface *intf, const struct usb_device_id *id) {
 
   /* register the device */
   result = usb_register_dev(dev->interface, &teensy_class_driver);
-  if (!result) { goto done; /* success */ }
+  if (!result) { printk(KERN_WARNING "Probed done.  Sizes (RWC): %d %d %d\n", dev->read_size, dev->write_size, dev->cmd_size); goto done; /* success */ }
 
   /* failure branch: free resources */
   usb_set_intfdata(dev->interface, NULL);

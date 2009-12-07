@@ -19,23 +19,17 @@
 typedef struct {
 	USB_Descriptor_Configuration_Header_t Config;
 	USB_Descriptor_Interface_t            Interface;
-#ifdef CTRL
-	USB_Descriptor_Endpoint_t             ControlInEndpoint;
-	USB_Descriptor_Endpoint_t             ControlOutEndpoint;
-#endif
 	USB_Descriptor_Endpoint_t             DataInEndpoint;
 	USB_Descriptor_Endpoint_t             DataOutEndpoint;
+	USB_Descriptor_Endpoint_t             CommandEndpoint;
 } USB_Descriptor_Configuration_t;
 
-#define CTRL_IN_EPNUM 3
-#define CTRL_OUT_EPNUM 4
-#define BULK_IN_EPNUM 5
-#define BULK_OUT_EPNUM 6
+#define BULK_IN_EPNUM 3
+#define BULK_OUT_EPNUM 4
+#define COMMAND_EPNUM 5
 
-#define BULK_OUT_EPSIZE (sizeof(usb_cmd_t) + sizeof(uint16_t))
+#define BULK_OUT_EPSIZE (sizeof(uint16_t))
 #define BULK_IN_EPSIZE (sizeof(uint16_t))
-
-#define CTRL_OUT_EPSIZE sizeof(usb_cmd_t)
-#define CTRL_IN_EPSIZE sizeof(gadget_err_t)
+#define COMMAND_EPSIZE (sizeof(usb_cmd_t))
 
 #endif /* DESC_H */

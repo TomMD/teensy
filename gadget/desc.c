@@ -60,11 +60,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 
                         .InterfaceNumber        = 0,
                         .AlternateSetting       = 0,
-#ifdef CTRL
-                        .TotalEndpoints         = 4,
-#else
-			.TotalEndpoints		= 2,
-#endif
+			.TotalEndpoints		= 3,
 
                         .Class                  = 0xff,
                         .SubClass               = 0xaa,
@@ -72,24 +68,6 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 
                         .InterfaceStrIndex      = NO_DESCRIPTOR
                 },
-
-#ifdef CTRL
-	.ControlInEndpoint = {
-			.Header			= {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
-			.EndpointAddress	= (ENDPOINT_DESCRIPTOR_DIR_IN | CTRL_IN_EPNUM),
-			.Attributes		= (EP_TYPE_CONTROL | ENDPOINT_ATTR_NO_SYNC),
-			.EndpointSize		= CTRL_IN_EPSIZE,
-			.PollingIntervalMS	= 0x00
-		},
-
-	.ControlOutEndpoint = {
-			.Header			= {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
-			.EndpointAddress	= (ENDPOINT_DESCRIPTOR_DIR_OUT | CTRL_OUT_EPNUM),
-			.Attributes		= (EP_TYPE_CONTROL | ENDPOINT_ATTR_NO_SYNC),
-			.EndpointSize		= CTRL_OUT_EPSIZE,
-			.PollingIntervalMS	= 0x00
-		},
-#endif
 
         .DataInEndpoint =
                 {
@@ -108,6 +86,16 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
                         .EndpointAddress        = (ENDPOINT_DESCRIPTOR_DIR_OUT | BULK_OUT_EPNUM),
                         .Attributes             = (EP_TYPE_BULK | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
                         .EndpointSize           = BULK_OUT_EPSIZE,
+                        .PollingIntervalMS      = 0x00
+                },
+
+	.CommandEndpoint = 
+                {
+                        .Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
+
+                        .EndpointAddress        = (ENDPOINT_DESCRIPTOR_DIR_OUT | COMMAND_EPNUM),
+                        .Attributes             = (EP_TYPE_BULK | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
+                        .EndpointSize           = COMMAND_EPSIZE,
                         .PollingIntervalMS      = 0x00
                 }
 

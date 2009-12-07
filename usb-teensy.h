@@ -16,14 +16,14 @@ typedef struct {
 	size_t	bytes_written;
 } stats_t;
 
-#define NUM_ENDPOINTS 2
+#define NUM_ENDPOINTS 3
 
 struct teensy_dev {
   struct usb_device    *device;        /* device information storage */
   struct usb_interface *interface;     /* interface information storage */
   struct semaphore sem;                /* use device as mutex granularity */
-  __u8                 del_endpoint;   /* CONTROL (OUT) for delete requests */
-  __u8                 err_endpoint;   /* CONTROL (IN) for error info */
+  __u8                 cmd_endpoint;   /* BULK (CONTROL / OUT) for command settings */
+  size_t               cmd_size;
   __u8                 read_endpoint;  /* BULK (IN) for reads */
   size_t               read_size;      /* size of the read endpoint */
   __u8                 write_endpoint; /* BULK (OUT) for writes */

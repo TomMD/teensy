@@ -52,8 +52,14 @@ ssize_t teensy_read(struct file *filp, char __user *buf, size_t count,
 	usb_cmd.cmd_type = CMD_READ;
 	usb_cmd.index = cmd.index;
 
-	err = usb_bulk_msg(teensy->device, usb_sndbulkpipe(teensy->device, teensy->write_endpoint), &usb_cmd,
+	err = usb_bulk_msg(teensy->device, usb_sndbulkpipe(teensy->device, teensy->cmd_endpoint), &usb_cmd,
 			   sizeof(usb_cmd_t), &actualLen, HZ*10);
+	if (err) {
+		printk(KERN_WARNING "teensy-usb: read:"
+			" Error writing command CMD_READ: %d\n", err);
+		goto teensy_read_out;
+	}
+
 	err = usb_bulk_msg(teensy->device, usb_rcvbulkpipe(teensy->device, teensy->read_endpoint), (void *)&cmd.data,
 			   sizeof(cmd.data), &actualLen, HZ*10);
 	if (err) {
@@ -85,6 +91,7 @@ ssize_t teensy_write(struct file *filp, const char __user *buf, size_t count,
 	struct command cmd;
 	usb_cmd_t usb_cmd;
 	int err=0, actualLen=0;
+	void *cmd_buf = NULL;
 
 	teensy = filp->private_data;
 
@@ -109,10 +116,12 @@ ssize_t teensy_write(struct file *filp, const char __user *buf, size_t count,
 	usb_cmd.cmd_type = CMD_STORE;
 	usb_cmd.index = cmd.index;
 
-	buf = kmalloc(sizeof(usb_cmd_t) + sizeof(uint16_t), GFP_KERNEL);
-	if (NULL == buf) {
-		printk(KERN_WARNING" teensy-usb: write: could not allocate\n");
-		err = -ENOMEM;
+	err = usb_bulk_msg(teensy->device, usb_sndbulkpipe(teensy->device, teensy->cmd_endpoint), &usb_cmd,
+			   sizeof(usb_cmd_t), &actualLen, HZ*10);
+	if (err) {
+		printk(KERN_WARNING "teensy-usb: write:"
+			" Error on cmd msg: %d\n", err);
+		actualLen=0;
 		goto teensy_write_out;
 	}
 
