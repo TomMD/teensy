@@ -16,7 +16,7 @@ typedef struct {
 	size_t	bytes_written;
 } stats_t;
 
-#define NUM_ENDPOINTS 4
+#define NUM_ENDPOINTS 2
 
 struct teensy_dev {
   struct usb_device    *device;        /* device information storage */

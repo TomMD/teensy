@@ -237,18 +237,6 @@ int teensy_probe(struct usb_interface *intf, const struct usb_device_id *id) {
     }
 
     /* setup del_endpoint if this is the control out endpoint */
-    else if (!dev->del_endpoint &&                   /* haven't set EP yet */
-        usb_endpoint_dir_out(curr_endpoint) &&       /* direction is OUT */
-        usb_endpoint_xfer_control(curr_endpoint)) {  /* type is CONTROL */
-      dev->del_endpoint = curr_endpoint->bEndpointAddress;
-    }
-
-    /* setup err_endpoint if this is the control in endpoint */
-    else if (!dev->err_endpoint &&                  /* haven't set EP yet */
-        usb_endpoint_dir_in(curr_endpoint) &&       /* direction is IN */
-        usb_endpoint_xfer_control(curr_endpoint)) { /* type is CONTROL */
-      dev->err_endpoint = curr_endpoint->bEndpointAddress;
-    }
     else {
       printk(KERN_WARNING "teensy_usb: unknown endpoint.\n");
       printk(KERN_WARNING "\tin?   %d", usb_endpoint_dir_in(curr_endpoint));
@@ -260,8 +248,7 @@ int teensy_probe(struct usb_interface *intf, const struct usb_device_id *id) {
     }
   }
 
-  if (!dev->read_endpoint || !dev->write_endpoint ||
-      !dev->del_endpoint  || !dev->err_endpoint) {
+  if (!dev->read_endpoint || !dev->write_endpoint) {
     printk(KERN_WARNING "usb-teensy: Bad endpoint (read, write, del, err):"
 		"%d %d %d %d\n", dev->read_endpoint, dev->write_endpoint,
 		dev->del_endpoint, dev->err_endpoint);

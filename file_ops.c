@@ -49,17 +49,11 @@ ssize_t teensy_read(struct file *filp, char __user *buf, size_t count,
 		goto teensy_read_out;
 	}
 
-	// FIXME issue usb_read(cmd)
 	usb_cmd.cmd_type = CMD_READ;
 	usb_cmd.index = cmd.index;
-	err = usb_control_msg(teensy->device, usb_sndctrlpipe(teensy->device, teensy->del_endpoint),
-				/*req*/ CMD_READ, /*reqType*/ 0, /*val*/ 0, /*idx*/ cmd.index,
-				(void *)&usb_cmd, sizeof(usb_cmd_t), HZ*10);
-	if (err) {
-		printk(KERN_WARNING "teensy-usb: read:"
-			" Error on control msg: %d\n", err);
-		goto teensy_read_out;
-	}
+
+	err = usb_bulk_msg(teensy->device, usb_sndbulkpipe(teensy->device, teensy->write_endpoint), &usb_cmd,
+			   sizeof(usb_cmd_t), &actualLen, HZ*10);
 	err = usb_bulk_msg(teensy->device, usb_rcvbulkpipe(teensy->device, teensy->read_endpoint), (void *)&cmd.data,
 			   sizeof(cmd.data), &actualLen, HZ*10);
 	if (err) {
@@ -67,6 +61,8 @@ ssize_t teensy_read(struct file *filp, char __user *buf, size_t count,
 			" Error on bulk msg: %d\n", err);
 		goto teensy_read_out;
 	}
+
+	printk(KERN_WARNING "teensy-usb: read data: %d\n", cmd.data);
 
 	err = copy_to_user(buf, (void *)&cmd, sizeof(struct command));
 	if (err) {
@@ -112,15 +108,15 @@ ssize_t teensy_write(struct file *filp, const char __user *buf, size_t count,
 
 	usb_cmd.cmd_type = CMD_STORE;
 	usb_cmd.index = cmd.index;
-	err = usb_control_msg(teensy->device, usb_sndctrlpipe(teensy->device, teensy->del_endpoint),
-				/*req*/ CMD_STORE, /*reqType*/ 0, /*val*/ 0, /*idx*/ cmd.index,
-				(void *)&usb_cmd, sizeof(usb_cmd_t), HZ*10);
-	if (err) {
-		printk(KERN_WARNING "teensy-usb: write:"
-			" Error on control msg: %d\n", err);
+
+	buf = kmalloc(sizeof(usb_cmd_t) + sizeof(uint16_t), GFP_KERNEL);
+	if (NULL == buf) {
+		printk(KERN_WARNING" teensy-usb: write: could not allocate\n");
+		err = -ENOMEM;
 		goto teensy_write_out;
 	}
-	err = usb_bulk_msg(teensy->device, usb_rcvbulkpipe(teensy->device, teensy->write_endpoint), (void *)&cmd.data,
+
+	err = usb_bulk_msg(teensy->device, usb_sndbulkpipe(teensy->device, teensy->write_endpoint), (void *)&cmd.data,
 			   sizeof(cmd.data), &actualLen, HZ*10);
 	if (err) {
 		printk(KERN_WARNING "teensy-usb: write:"
@@ -128,6 +124,8 @@ ssize_t teensy_write(struct file *filp, const char __user *buf, size_t count,
 		actualLen=0;
 		goto teensy_write_out;
 	}
+
+	printk(KERN_WARNING "teensy-usb: wrote data: %d\n", cmd.data);
 
 teensy_write_out:
 	up(&teensy->sem);
