@@ -120,9 +120,8 @@ void StoreTask(state_t *state)
 			teensy_read(state->index, &data);
 			err = Endpoint_Write_Stream_LE(&data, sizeof(uint16_t));
 			LED_OFF;
-		} else {
-			Endpoint_ClearIN();
 		}
+		Endpoint_ClearIN();
 	}
 
 	Endpoint_SelectEndpoint(BULK_OUT_EPNUM);
@@ -132,9 +131,7 @@ void StoreTask(state_t *state)
 			teensy_store(cmd.index, data);
 			LED_OFF;
 		}
-		else {
-			Endpoint_ClearOUT();
-		}
+		Endpoint_ClearOUT();
 	}
 
 	Endpoint_SelectEndpoint(COMMAND_EPNUM);
