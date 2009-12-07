@@ -6,7 +6,9 @@
 #ifndef COMMANDS_H
 #define COMMANDS_H
 
+#ifndef __KERNEL__
 #include <stdint.h>
+#endif
 
 // Commands that travel over the COMMAND usb channel
 #define CMD_STORE	0x00
