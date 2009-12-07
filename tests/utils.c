@@ -12,7 +12,7 @@ specified in flags (such as NON-BLOCKING) */
 int open_teensy(int flags) {
     int teensy, err;
 
-    teensy = open("/dev/ttyUSB001", O_RDWR | flags);
+    teensy = open ("/dev/teensy0", O_RDWR | flags); // open("/dev/ttyUSB001", O_RDWR | flags);
 
     if (!teensy) { 
         err = errno;
@@ -86,11 +86,14 @@ int write_file_to_dev(int dev_handle, const char* file, int index) {
 
     /* open the specified file for reading */
     handle = open(file, O_RDONLY);
-    if (handle == (-1)) { return (-1); }
+    if (handle == (-1)) { 
+		printf("Can't open file\n");
+		return (-1);
+    }
 
     /* verify that the file is an appropriate size for writing */
     datasize    = filesize(handle);
-    if (datasize > MAXDATASIZE) { err = (-1); goto fail_before_alloc; }
+    if (datasize > MAXDATASIZE) { printf("can't get size\n"); err = (-1); goto fail_before_alloc; }
 
     /* fill in the request structure */
     wreq->index    = index;
@@ -98,14 +101,14 @@ int write_file_to_dev(int dev_handle, const char* file, int index) {
     /* FUTURE: alloc data field and fill in size of array to write
     wreq->size     = datasize;
     wreq->data     = malloc(datasize); */
-    err            = read(handle, wreq->data, datasize);
-    if (err != datasize) { err = (-1); goto done; }
+    err            = read(handle, &wreq->data, datasize);
+    if (err != datasize) { printf("can't read\n"); err = (-1); goto done; }
 
     /* perform the write to the device */
     err = write(dev_handle, wreq, 1);
 
     /* set error return */
-    if (err == (-1)) { err = errno; }
+    if (err == (-1)) { printf("couldn't write\n"); err = errno; }
     else if (err == 1) { err = 0; }
 
     /* cleanup */
