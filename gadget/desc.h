@@ -31,7 +31,7 @@ typedef struct {
 #define BULK_OUT_EPNUM 6
 
 #define BULK_EPSIZE sizeof(uint16_t)
-#define CTRL_OUT_EPSIZE 16 // sizeof(usb_cmd_t)
-#define CTRL_IN_EPSIZE 16 //sizeof(gadget_err_t)
+#define CTRL_OUT_EPSIZE sizeof(usb_cmd_t)
+#define CTRL_IN_EPSIZE sizeof(gadget_err_t)
 
 #endif /* DESC_H */
