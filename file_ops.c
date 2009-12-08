@@ -62,13 +62,11 @@ ssize_t teensy_read(struct file *filp, char __user *buf, size_t count,
 
 	err = usb_bulk_msg(teensy->device, usb_rcvbulkpipe(teensy->device, teensy->read_endpoint), (void *)&cmd.data,
 			   sizeof(cmd.data), &actualLen, HZ*10);
-	if (err) {
+	if (err || actualLen != sizeof(cmd.data)) {
 		printk(KERN_WARNING "teensy-usb: read:"
 			" Error on bulk msg: %d\n", err);
 		goto teensy_read_out;
 	}
-
-	printk(KERN_WARNING "teensy-usb: read data: %d\n", cmd.data);
 
 	err = copy_to_user(buf, (void *)&cmd, sizeof(struct command));
 	if (err) {
@@ -91,7 +89,6 @@ ssize_t teensy_write(struct file *filp, const char __user *buf, size_t count,
 	struct command cmd;
 	usb_cmd_t usb_cmd;
 	int err=0, actualLen=0;
-	void *cmd_buf = NULL;
 
 	teensy = filp->private_data;
 
@@ -134,8 +131,6 @@ ssize_t teensy_write(struct file *filp, const char __user *buf, size_t count,
 		goto teensy_write_out;
 	}
 
-	printk(KERN_WARNING "teensy-usb: wrote data: %d\n", cmd.data);
-
 teensy_write_out:
 	up(&teensy->sem);
 teensy_write_out_no_sem:
@@ -144,22 +139,42 @@ teensy_write_out_no_sem:
 
 int teensy_ioctl(struct inode *inode, struct file *filp, unsigned int cmd, unsigned long idx)
 {
-	int res = 0;
+	struct teensy_dev *teensy;
+	int res = 0, actualLen, err;
+	uint8_t rand;
+	usb_cmd_t usb_cmd;
 
 	if (_IOC_TYPE(cmd) != TEENSY_MAGIC)
 		return -ENOTTY;
 	if (_IOC_NR(cmd) >= TEENSY_IOC_MAXNR)
 		return -ENOTTY;
 
+	teensy = filp->private_data;
+	if (down_interruptible(&teensy->sem)) {
+		printk(KERN_WARNING "teensy-usb: write: down interrupted\n");
+		goto teensy_ioctl_out_no_sem;
+	}
+
 	switch (cmd) {
 		case TEENSY_IOCFLUSH:
 			// FIXME flush all data on the teensy
 			break;
 		case TEENSY_IOCERASE_IDX:
-			// FIXME erase given index (the 'idx' argument)
+			usb_cmd.cmd_type = CMD_DELETE;
+			usb_cmd.index = (uint64_t)idx;
+			err = usb_bulk_msg(teensy->device, usb_sndbulkpipe(teensy->device, teensy->cmd_endpoint), (void *)&usb_cmd,
+					sizeof(usb_cmd_t), &actualLen, HZ*10);
+			if (err || actualLen != sizeof(usb_cmd_t)) {
+				printk(KERN_WARNING "teensy-usb: ioctl: failed sending CMD_DELETE\n");
+				goto teensy_ioctl_out;		
+			}
 			break;
 		default:
 			res = -EINVAL;
 	}
+
+teensy_ioctl_out:
+	up(&teensy->sem);
+teensy_ioctl_out_no_sem:
 	return res;
 }
