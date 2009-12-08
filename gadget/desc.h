@@ -24,9 +24,9 @@ typedef struct {
 	USB_Descriptor_Endpoint_t             CommandEndpoint;
 } USB_Descriptor_Configuration_t;
 
-#define BULK_IN_EPNUM 3
-#define BULK_OUT_EPNUM 4
-#define COMMAND_EPNUM 5
+#define BULK_IN_EPNUM 1
+#define BULK_OUT_EPNUM 2
+#define COMMAND_EPNUM 3
 
 #define BULK_OUT_EPSIZE (sizeof(uint16_t))
 #define BULK_IN_EPSIZE (sizeof(uint16_t))
