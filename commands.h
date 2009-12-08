@@ -56,9 +56,8 @@ struct response {
 } __attribute__((__packed__));
 
 #define TEENSY_MAGIC 't'
-#define TEENSY_IOC_MAXNR 2
-#define TEENSY_IOCFLUSH 0
-#define TEENSY_IOCERASE_IDX 1
-
+#define TEENSY_IOCFLUSH _IO(TEENSY_MAGIC,1)
+#define TEENSY_IOCERASE_IDX _IO(TEENSY_MAGIC,2)
+#define TEENSY_IOC_MAXNR 3
 
 #endif
