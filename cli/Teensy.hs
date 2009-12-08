@@ -13,7 +13,6 @@ import Data.Word
 import Commands
 
 main = do
-	print rwSize
 	args <- getArgs
 	when (length args < 2)
 	  (error $ "Usage:" ++
