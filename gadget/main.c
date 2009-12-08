@@ -23,10 +23,8 @@ int config_led = 0;
 #define LED_ON          (PORTD |= (1<<6))
 
 struct state {
-	int index;
-	int offset;
-	int command;
-	uint8_t err;
+	uint8_t command;
+	uint64_t index;
 };
 
 typedef struct state state_t;
@@ -78,11 +76,8 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 int main(void)
 {
 	state_t state;
-
-	state.index = 0;
-	state.offset = 0;
 	state.command = CMD_NULL;
-	state.err = ENOERR;
+	state.index = 0;
 
 	Init();
 
@@ -107,9 +102,7 @@ void Init(void)
 
 void StoreTask(state_t *state)
 {
-	usb_cmd_t cmd;
 	uint8_t err;
-	static uint16_t data=0;
 
 	if (USB_DeviceState != DEVICE_STATE_Configured)
 		return;
@@ -117,29 +110,38 @@ void StoreTask(state_t *state)
 	Endpoint_SelectEndpoint(BULK_IN_EPNUM);
 	if (Endpoint_IsConfigured() && Endpoint_IsINReady() && Endpoint_IsReadWriteAllowed()) {
 		if(CMD_READ == state->command) {
+			uint16_t data;
 			teensy_read(state->index, &data);
-			err = Endpoint_Write_Stream_LE(&data, sizeof(uint16_t));
-			LED_OFF;
+			err = Endpoint_Write_Stream_LE((void *)&data, sizeof(uint16_t));
 		}
 		Endpoint_ClearIN();
 	}
 
 	Endpoint_SelectEndpoint(BULK_OUT_EPNUM);
 	if (Endpoint_IsConfigured() && Endpoint_IsOUTReceived() && Endpoint_IsReadWriteAllowed()) {
-		if(state->command == CMD_STORE) {
+		if(CMD_STORE == state->command) {
+			uint16_t data;
 			err = Endpoint_Read_Stream_LE(&data, sizeof(uint16_t));
-			teensy_store(cmd.index, data);
-			LED_OFF;
+			teensy_store(state->index, data);
 		}
 		Endpoint_ClearOUT();
 	}
 
 	Endpoint_SelectEndpoint(COMMAND_EPNUM);
 	if (Endpoint_IsConfigured() && Endpoint_IsOUTReceived() && Endpoint_IsReadWriteAllowed()) {
+		usb_cmd_t cmd;
 		err = Endpoint_Read_Stream_LE(&cmd, sizeof(usb_cmd_t));
+		switch (cmd.cmd_type) {
+			case CMD_DELETE:
+				teensy_delete(cmd.index);
+				break;
+			default:
+				;
+		}
 		state->command = cmd.cmd_type;
 		state->index   = cmd.index;
-		LED_ON;
+		Endpoint_ResetFIFO(BULK_IN_EPNUM);
+		Endpoint_ResetFIFO(BULK_OUT_EPNUM);
 		Endpoint_ClearOUT();
 	}
 }
