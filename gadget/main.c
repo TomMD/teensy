@@ -97,7 +97,7 @@ void Init(void)
 	USB_Init();
 	LED_CONFIG;
 	LED_OFF;
-//	Display_Init();
+	Display_Init();
 }
 
 void StoreTask(state_t *state)
@@ -113,6 +113,7 @@ void StoreTask(state_t *state)
 			uint16_t data;
 			teensy_read(state->index, &data);
 			err = Endpoint_Write_Stream_LE((void *)&data, sizeof(uint16_t));
+			out_hex(data, 0);
 		}
 		Endpoint_ClearIN();
 	}
@@ -123,6 +124,7 @@ void StoreTask(state_t *state)
 			uint16_t data;
 			err = Endpoint_Read_Stream_LE(&data, sizeof(uint16_t));
 			teensy_store(state->index, data);
+			out_hex(data,1);
 		}
 		Endpoint_ClearOUT();
 	}
