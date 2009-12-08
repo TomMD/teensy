@@ -2,8 +2,8 @@
 // Author : A. John Ochsner IV
 // Group  : Rebekah Leslie & Thomas DuBuisson
 
-#ifndef TEENSY_BLOBS_H
-#define TEENSY_BLOBS_H
+#ifndef TEENSY_DISPLAY_H
+#define TEENSY_DISPLAY_H
 
 extern unsigned short hex_val(const char);
 extern void digitalWrite(uint8_t, uint8_t);
