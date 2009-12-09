@@ -12,6 +12,8 @@ import Data.Word
 
 import Commands
 
+nrBlobs = 256
+
 main = do
 	args <- getArgs
 	when (length args < 2)
@@ -20,7 +22,8 @@ main = do
 		"\t-e <teensy#> [index]  Erase index or all indexes\n" ++
 		"\t-r <teensy#> <indexes>  Read all given indexes\n" ++
 		"\t-w <teensy#> <index> <data>  Writes the remaining data\n" ++
-		"\t-s <teensy#> stress test\n")
+		"\t-s <teensy#> stress test\n" ++
+		"\t-c <teensy#> count test\n")
 	let (mode:teensy:rest) = args
 	srM <- openTeensy ("/dev/teensy" ++ teensy) [O_RDWR]
 
@@ -45,10 +48,10 @@ handleArgs sr mode rest = do
 					writeTeensy sr idx dat >> return ()
 				_      -> return ()
 		"-s" -> stressTest sr
+		"-c" -> countTest sr
 		_    -> return ()
 
 stressTest sr = do
-	let nrBlobs = 256
 	mapM_ fillBlob   [0..nrBlobs - 1]
 	res <- mapM verifyBlob [0..nrBlobs - 1]
 	print res
@@ -56,3 +59,5 @@ stressTest sr = do
    fillBlob b = writeTeensy sr (blobIdx b) b
    verifyBlob b = fmap (== b) (readTeensy sr (blobIdx b))
    blobIdx = BlobIdx . fromIntegral
+
+countTest sr = mapM_ (writeTeensy sr (BlobIdx 0)) [0..0xffff]
